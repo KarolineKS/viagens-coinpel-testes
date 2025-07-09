@@ -4,7 +4,7 @@
 
 <!-- Marque a(s) caixa(s) que se aplica(m) -->
 
--   [ ] Bug fix
+-   [ ] Correção de bug
 -   [ ] Nova feature
 -   [ ] Refatoração
 -   [ ] Chore (configuração, dependências, etc.)
