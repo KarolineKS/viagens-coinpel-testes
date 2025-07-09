@@ -20,6 +20,7 @@ class LoginRequest extends FormRequest
     /**
      * Determine if the user is authorized to make this request.
      */
+
     public function authorize(): bool
     {
         return true;
@@ -30,6 +31,7 @@ class LoginRequest extends FormRequest
      *
      * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
      */
+
     public function rules(): array
     {
         return [
@@ -46,18 +48,32 @@ class LoginRequest extends FormRequest
 
     public function tryToLogin(): bool
     {
-        if ($user = User::query()
-            ->where('email', "=", $this->email)
-            ->first()
-        ) {
+        $remember = $this->boolean('remember');
 
-            if (Hash::check($this->password, $user->password)) {
-                Auth::login($user);
+        if (Auth::attempt(['email' => $this->email, 'password' => $this->password], $remember)) {
 
-                return true;
-            };
+            $user = Auth::user();
+
+            if ($user->first_login) {
+                session()->put('require_password_change', true);
+            }
+
+            return true;
         }
 
         return false;
+    }
+
+
+    /**
+     * Custom error messages
+     */
+    public function messages(): array
+    {
+        return [
+            'email.required' => 'O e-mail é obrigatório.',
+            'email.email' => 'O e-mail deve ser um endereço de e-mail válido.',
+            'password.required' => 'A senha é obrigatória.',
+        ];
     }
 }
