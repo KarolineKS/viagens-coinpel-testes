@@ -9,7 +9,9 @@ document.addEventListener("DOMContentLoaded", () => {
         });
         changePasswordModal.show();
 
-        const closeButton = changePasswordModalEl.querySelector(".btn-close");
+        const closeButton = changePasswordModalEl.querySelector(
+            ".change-password-modal__close-btn"
+        );
         if (closeButton) {
             closeButton.addEventListener("click", (event) => {
                 event.preventDefault();
@@ -30,5 +32,53 @@ document.addEventListener("DOMContentLoaded", () => {
     if (sessionAlertModalEl) {
         const sessionAlertModal = new bootstrap.Modal(sessionAlertModalEl);
         sessionAlertModal.show();
+    }
+
+    const passwordInput = document.getElementById("new-password");
+    const passwordConfirmationInput = document.getElementById(
+        "new-password-confirmation"
+    );
+    const submitButton = document.getElementById("change-password-submit-btn");
+    const lengthError = document.getElementById("password-length-error");
+    const matchError = document.getElementById("password-match-error");
+
+    function validatePasswords() {
+        const password = passwordInput.value;
+        const confirmation = passwordConfirmationInput.value;
+        let isLengthValid = false;
+        let arePasswordsMatching = false;
+
+        if (password.length > 0 && password.length < 8) {
+            lengthError.textContent =
+                "A senha deve ter no mínimo 8 caracteres.";
+            passwordInput.classList.add("is-invalid");
+            isLengthValid = false;
+        } else {
+            lengthError.textContent = "";
+            passwordInput.classList.remove("is-invalid");
+            isLengthValid = password.length >= 8;
+        }
+
+        if (confirmation.length > 0 && password !== confirmation) {
+            matchError.textContent = "As senhas não conferem.";
+            passwordConfirmationInput.classList.add("is-invalid");
+            arePasswordsMatching = false;
+        } else {
+            matchError.textContent = "";
+            passwordConfirmationInput.classList.remove("is-invalid");
+            arePasswordsMatching =
+                confirmation.length > 0 && password === confirmation;
+        }
+
+        if (isLengthValid && arePasswordsMatching) {
+            submitButton.disabled = false;
+        } else {
+            submitButton.disabled = true;
+        }
+    }
+
+    if (passwordInput && passwordConfirmationInput && submitButton) {
+        passwordInput.addEventListener("keyup", validatePasswords);
+        passwordConfirmationInput.addEventListener("keyup", validatePasswords);
     }
 });

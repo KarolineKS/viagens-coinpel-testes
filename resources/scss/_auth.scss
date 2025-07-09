@@ -74,7 +74,7 @@ body {
             margin-bottom: 20px;
 
             &:focus {
-                box-shadow: 0 0 0 0.25rem rgba(darken($primary, 10%), 0.2);
+                box-shadow: 0 0 0 0.1rem rgba($primary, 0.2);
             }
 
             &::placeholder {
@@ -172,6 +172,16 @@ body {
         padding: 0;
         margin: 0;
         background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center;
+        border: none;
+        background-color: transparent;
+        cursor: pointer;
+        opacity: 0.7;
+
+        &:hover {
+            opacity: 1;
+        }
     }
 
     &__body {
@@ -203,12 +213,28 @@ body {
             background: #fff;
             height: 37px;
         }
+
+        &:focus {
+            box-shadow: 0 0 0 0.1rem rgba($primary, 0.2);
+        }
     }
 
     &__submit-btn {
         &.btn {
             margin-top: 10px;
+            background-color: $primary;
+            border-color: $primary;
+
+            &:hover {
+                background-color: darken($primary, 10%);
+                border-color: darken($primary, 10%);
+            }
         }
+    }
+
+    .error-span {
+        font-size: 12px;
+        font-weight: 400;
     }
 }
 
