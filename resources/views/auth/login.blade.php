@@ -4,13 +4,6 @@
 
 @section('content')
 
-<style>
-    :root {
-        --img-login-bg: url('{{ asset(' images/img-login.jpg') }}');
-        --icon-close: url('{{ asset(' images/x.svg') }}');
-    }
-</style>
-
 <div class="auth-layout">
     <div class="auth-layout__form-section">
         <div class="auth-layout__form-wrapper">

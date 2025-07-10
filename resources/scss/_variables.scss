@@ -12,3 +12,8 @@ $font-family-sans-serif: "Roboto", sans-serif;
 body {
     font-family: $font-family-sans-serif;
 }
+
+:root {
+    --img-login-bg: url("{{ asset("assets/images/img-login.jpg") }}");
+    --icon-close: url("{{ asset("assets/images/x.svg") }}");
+}
