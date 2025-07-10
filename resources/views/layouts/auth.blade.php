@@ -24,7 +24,7 @@
 
     @if (session('error'))
     <x-custom-alert type="error" :message="session('error')" />
-    @elseif (session('info'))
+    @elseif (session('warning'))
     <x-custom-alert type="warning" :message="session('warning')" />
     @endif
 
