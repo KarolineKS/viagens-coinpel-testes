@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Constants\SessionKeys;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\LoginRequest;
 
@@ -16,8 +17,8 @@ class LoginController extends Controller
     {
         if ($request->tryToLogin()) {
 
-            if (session()->has('require_password_change')) {
-                session()->forget('require_password_change');
+            if (session()->has(SessionKeys::REQUIRE_PASSWORD_CHANGE)) {
+                session()->forget(SessionKeys::REQUIRE_PASSWORD_CHANGE);
 
                 return view('auth.login', ['requirePasswordChange' => true]);
             }

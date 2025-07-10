@@ -2,8 +2,7 @@
 
 namespace App\Http\Requests;
 
-use App\Models\User;
-use Illuminate\Support\Facades\Hash;
+use App\Constants\SessionKeys;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -55,7 +54,7 @@ class LoginRequest extends FormRequest
             $user = Auth::user();
 
             if ($user->first_login) {
-                session()->put('require_password_change', true);
+                session()->put(SessionKeys::REQUIRE_PASSWORD_CHANGE, true);
             }
 
             return true;
