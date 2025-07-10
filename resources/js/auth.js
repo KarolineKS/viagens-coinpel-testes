@@ -41,6 +41,10 @@ document.addEventListener("DOMContentLoaded", () => {
     const submitButton = document.getElementById("change-password-submit-btn");
     const lengthError = document.getElementById("password-length-error");
     const matchError = document.getElementById("password-match-error");
+    const form = document.getElementById("change-password-form");
+    const minPasswordLength = form
+        ? parseInt(form.dataset.minPasswordLength)
+        : 8;
 
     function validatePasswords() {
         const password = passwordInput.value;
@@ -48,15 +52,14 @@ document.addEventListener("DOMContentLoaded", () => {
         let isLengthValid = false;
         let arePasswordsMatching = false;
 
-        if (password.length > 0 && password.length < 8) {
-            lengthError.textContent =
-                "A senha deve ter no mínimo 8 caracteres.";
+        if (password.length > 0 && password.length < minPasswordLength) {
+            lengthError.textContent = `A senha deve ter no mínimo ${minPasswordLength} caracteres.`;
             passwordInput.classList.add("is-invalid");
             isLengthValid = false;
         } else {
             lengthError.textContent = "";
             passwordInput.classList.remove("is-invalid");
-            isLengthValid = password.length >= 8;
+            isLengthValid = password.length >= minPasswordLength;
         }
 
         if (confirmation.length > 0 && password !== confirmation) {

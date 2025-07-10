@@ -10,7 +10,7 @@
             <div class="modal-body change-password-modal__body">
                 <p class="change-password-modal__description">No seu primeiro acesso é necessário trocar a senha provisória. É obrigatório que a senha tenha no mínimo 8 caracteres.</p>
 
-                <form action="{{ route('change-password') }}" method="POST" id="change-password-form">
+                <form action="{{ route('change-password') }}" method="POST" id="change-password-form" data-min-password-length="{{ $minPasswordLength }}">
                     @csrf
 
                     <div class="change-password-modal__input-group">
