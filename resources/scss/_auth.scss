@@ -47,7 +47,7 @@ body {
     &__image-section {
         flex: 1;
         background-color: #503c6c;
-        background-image: url("../../public/images/img-login.jpg");
+        background-image: url("../images/img-login.jpg");
         background-size: cover;
         background-position: center;
         display: flex;
@@ -166,7 +166,7 @@ body {
     }
 
     &__close-btn {
-        background-image: url("../../public/images/x.svg");
+        background-image: url("../images/x.svg");
         height: 13px;
         width: 13px;
         padding: 0;
