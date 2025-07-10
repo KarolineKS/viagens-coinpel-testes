@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Constants\ValidationConstants;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
 
@@ -35,7 +36,7 @@ class ChangePasswordRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'password' => ['required', 'min:8', 'confirmed'],
+            'password' => ['required', 'min:' . ValidationConstants::MIN_PASSWORD_LENGTH, 'confirmed'],
         ];
     }
 
@@ -49,7 +50,7 @@ class ChangePasswordRequest extends FormRequest
     {
         return [
             'password.required' => 'A nova senha é obrigatória.',
-            'password.min' => 'A senha deve ter no mínimo 8 caracteres.',
+            'password.min' => 'A senha deve ter no mínimo ' . ValidationConstants::MIN_PASSWORD_LENGTH . ' caracteres.',
             'password.confirmed' => 'A confirmação da senha não confere.',
         ];
     }
