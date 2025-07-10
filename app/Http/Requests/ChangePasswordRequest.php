@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Auth;
  * @property-read string $password New password field
  * @property-read string $password_confirmation Password confirmation field
  */
+
 class ChangePasswordRequest extends FormRequest
 {
     /**
@@ -20,6 +21,7 @@ class ChangePasswordRequest extends FormRequest
      *
      * @return bool True if user is authenticated
      */
+
     public function authorize(): bool
     {
         return Auth::check();
@@ -42,6 +44,7 @@ class ChangePasswordRequest extends FormRequest
      *
      * @return array<string, string> Array of error messages
      */
+
     public function messages(): array
     {
         return [
