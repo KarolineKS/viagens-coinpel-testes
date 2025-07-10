@@ -32,7 +32,7 @@ class LoginController extends Controller
 
         if ($this->isPasswordChangeRequired()) {
             return response()->view('auth.login', [
-                'requirePasswordChange' => true,
+                SessionKeys::REQUIRE_PASSWORD_CHANGE => true,
                 'minPasswordLength' => ValidationConstants::MIN_PASSWORD_LENGTH,
             ]);
         }
