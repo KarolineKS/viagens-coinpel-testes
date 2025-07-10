@@ -6,15 +6,19 @@ use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
 
 /**
- * Handle Change Password Request
- * 
- * @property-read string $password
- * @property-read string $password_confirmation
+ * Password change request validation.
+ *
+ * Validates password change data including confirmation and security rules.
+ *
+ * @property-read string $password New password field
+ * @property-read string $password_confirmation Password confirmation field
  */
 class ChangePasswordRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
+     *
+     * @return bool True if user is authenticated
      */
     public function authorize(): bool
     {
@@ -34,7 +38,9 @@ class ChangePasswordRequest extends FormRequest
     }
 
     /**
-     * Custom error messages
+     * Get custom validation error messages.
+     *
+     * @return array<string, string> Array of error messages
      */
     public function messages(): array
     {

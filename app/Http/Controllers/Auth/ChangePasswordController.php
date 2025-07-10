@@ -11,19 +11,27 @@ use Illuminate\Support\Facades\Hash;
 class ChangePasswordController extends Controller
 {
     /**
-     * Atualiza a senha do usuário autenticado e marca o primeiro login como concluído.
+     * Update the authenticated user's password.
      *
-     * @param  \App\Http\Requests\ChangePasswordRequest  
-     * @return \Illuminate\Http\RedirectResponse 
+     * Marks the first login as completed and forces logout for new authentication.
+     *
+     * @param ChangePasswordRequest $request Validated new password data
+     * @return \Illuminate\Http\RedirectResponse Redirect to login with success message
      */
 
     public function store(ChangePasswordRequest $request)
     {
-        $user = User::find(Auth::id());
+        /** @var User $user */
+        $user = Auth::user();
 
-        $user->password = Hash::make($request->password);
-        $user->first_login = false;
-        $user->save();
+        if (!$user) {
+            return redirect()->route('login')->with('error', 'Usuário não encontrado.');
+        }
+
+        $user->update([
+            'password' => Hash::make($request->password),
+            'first_login' => false,
+        ]);
 
         Auth::logout();
 
