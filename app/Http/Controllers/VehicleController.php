@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Vehicle;
+use App\Http\Requests\StoreVehicleRequest;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 
 class VehicleController extends Controller
@@ -27,9 +29,21 @@ class VehicleController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreVehicleRequest $request): RedirectResponse
     {
-        //
+        $data = $request->validated();
+
+        $amenities = $data['amenities'] ?? [];
+        unset($data['amenities']);
+
+        foreach ($amenities as $amenity) {
+            $data[$amenity] = true;
+        }
+
+        Vehicle::create($data);
+
+        return redirect()->route('vehicles.index')
+            ->with('success', 'Veículo cadastrado com sucesso.');
     }
 
     /**

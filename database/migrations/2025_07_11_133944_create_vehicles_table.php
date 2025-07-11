@@ -13,21 +13,22 @@ return new class extends Migration
     {
         Schema::create('vehicles', function (Blueprint $table) {
             $table->id();
-            $table->string('prefixo')->unique();
-            $table->string('placa')->unique();
-            $table->string('modelo');
-            $table->string('chassi')->unique();
-            $table->string('tipo_veiculo');
-            $table->integer('capacidade');
-            $table->year('ano');
-            $table->string('bancada');
-            $table->boolean('internet')->default(false);
-            $table->boolean('wc')->default(false);
-            $table->boolean('tomada')->default(false);
-            $table->boolean('ar_condicionado')->default(false);
-            $table->boolean('geladeira')->default(false);
-            $table->boolean('calefacao')->default(false);
-            $table->boolean('video')->default(false);
+            $table->string('identification_name');
+            $table->string('prefix')->unique();
+            $table->string('license_plate')->unique();
+            $table->string('model');
+            $table->string('chassis')->unique();
+            $table->string('vehicle_type');
+            $table->integer('capacity');
+            $table->year('year');
+            $table->string('seating_layout');
+            $table->boolean('has_internet')->default(false);
+            $table->boolean('has_wc')->default(false);
+            $table->boolean('has_power_outlet')->default(false);
+            $table->boolean('has_ac')->default(false);
+            $table->boolean('has_fridge')->default(false);
+            $table->boolean('has_heating')->default(false);
+            $table->boolean('has_video')->default(false);
             $table->timestamps();
         });
     }

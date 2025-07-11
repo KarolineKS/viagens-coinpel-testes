@@ -11,11 +11,12 @@
     <table class="table table-custom">
         <thead>
             <tr>
+                <th>Nome de Identificação</th>
                 <th>Prefixo</th>
                 <th>Placa</th>
                 <th>Modelo</th>
                 <th>Chassi</th>
-                <th>Tipo de veículo</th>
+                <th>Tipo de Veículo</th>
                 <th>Capacidade</th>
                 <th>Ano</th>
                 <th>Ações</th>
@@ -24,13 +25,14 @@
         <tbody>
             @forelse ($vehicles as $vehicle)
             <tr>
-                <td>{{ $vehicle->prefixo }}</td>
-                <td>{{ $vehicle->placa }}</td>
-                <td>{{ $vehicle->modelo }}</td>
-                <td>{{ $vehicle->chassi }}</td>
-                <td>{{ $vehicle->tipo_veiculo }}</td>
-                <td>{{ $vehicle->capacidade }}</td>
-                <td>{{ $vehicle->ano }}</td>
+                <td>{{ $vehicle->identification_name }}</td>
+                <td>{{ $vehicle->prefix}}</td>
+                <td>{{ $vehicle->license_plate }}</td>
+                <td>{{ $vehicle->model }}</td>
+                <td>{{ $vehicle->chassis }}</td>
+                <td>{{ $vehicle->vehicle_type }}</td>
+                <td>{{ $vehicle->capacity }}</td>
+                <td>{{ $vehicle->year }}</td>
                 <td>
                     <div class="dropdown">
                         <button class="btn btn-light" type="button" data-bs-toggle="dropdown" aria-expanded="false">
