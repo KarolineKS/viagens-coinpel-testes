@@ -1,0 +1,238 @@
+%elevated-box {
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+    border-radius: 6px;
+    overflow: hidden;
+    background-color: #fff;
+    border: none;
+}
+
+.app-layout {
+    display: flex;
+    background-color: #fff;
+}
+
+.sidebar {
+    width: 190px;
+    box-sizing: border-box;
+    background-color: $primary;
+    color: #ffffff;
+    height: 100vh;
+    position: sticky;
+    top: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    &__logo {
+        max-width: 150px;
+        margin-top: 24px;
+        margin-bottom: 40px;
+        display: block;
+    }
+
+    &__nav {
+        align-self: stretch;
+        display: flex;
+        flex-direction: column;
+        padding: 0 20px;
+
+        ul {
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 35px;
+        }
+    }
+
+    &__item {
+        list-style: none;
+    }
+
+    &__link {
+        display: flex;
+        align-items: center;
+        gap: 17px;
+        border-radius: 8px;
+        text-decoration: none;
+        font-weight: 500;
+        transition: background-color 0.2s, color 0.2s;
+        color: #f3f3f3;
+        font-size: 16px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: normal;
+
+        &:hover,
+        &.active {
+            background-color: darken($primary, 10%);
+        }
+    }
+}
+
+.main-content {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.header {
+    background-color: #ffffff;
+    padding: 30px 25px;
+    border-bottom: 1px solid #eef0f3;
+
+    &__actions {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+    }
+
+    &__search {
+        margin-right: 25px;
+
+        .input-group {
+            @extend %elevated-box;
+        }
+
+        .form-control {
+            width: 336px;
+            border: none;
+            padding: 10px 14px;
+
+            &:focus {
+                box-shadow: none;
+            }
+
+            &::placeholder {
+                color: #bdbdbd;
+                font-size: 16px;
+                font-style: normal;
+                font-weight: 400;
+                line-height: normal;
+            }
+        }
+        .btn {
+            border: none;
+            background-color: transparent;
+
+            &:hover {
+                background-color: #f8f9fa;
+            }
+        }
+    }
+
+    &__user-info {
+        background: none;
+        border: none;
+        padding: 0;
+        gap: 20px;
+    }
+
+    &__user-avatar img {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+    }
+
+    &__user-details {
+        gap: 3px;
+    }
+
+    &__user-name {
+        color: #383838;
+        font-size: 16px;
+        font-style: normal;
+        font-weight: 700;
+        line-height: normal;
+    }
+
+    &__user-role {
+        color: #9e9e9e;
+        font-size: 16px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: normal;
+    }
+
+    &__filter-btn {
+        color: #212121;
+        font-size: 16px;
+        font-style: normal;
+        font-weight: 500;
+        line-height: normal;
+        padding: 12px 35px;
+        @extend %elevated-box;
+
+        &:hover {
+            background-color: #f8f9fa;
+        }
+    }
+    .dropdown {
+        margin-left: 30px;
+    }
+
+    .header .dropdown .dropdown-menu {
+        margin-top: 10px;
+    }
+
+    .dropdown-menu {
+        background: transparent;
+        border: none;
+        box-shadow: none;
+        padding: 0;
+
+        &.dropdown-menu-end {
+            right: 0;
+            left: auto;
+        }
+
+        .dropdown-item {
+            color: #6c757d;
+            padding: 8px 14px;
+            @extend %elevated-box;
+            transition: transform 0.2s ease;
+            text-decoration: none;
+
+            &:first-child {
+                margin-bottom: 10px;
+                width: 75%;
+            }
+
+            &:hover,
+            &:focus {
+                background-color: #fff;
+                color: #212529;
+                transform: translateY(-2px);
+            }
+        }
+
+        form {
+            display: inline-block;
+            @extend %elevated-box;
+            border-radius: 8px;
+            transition: transform 0.2s ease;
+
+            &:hover,
+            &:focus-within {
+                transform: translateY(-2px);
+            }
+
+            button.dropdown-item {
+                box-shadow: none;
+                background: transparent;
+                &:hover,
+                &:focus {
+                    color: #212529;
+                }
+            }
+        }
+    }
+
+    &__add-btn {
+        padding: 10px;
+    }
+}
+
+main {
+    padding: 2rem;
+    flex-grow: 1;
+}
