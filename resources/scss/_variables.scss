@@ -17,3 +17,16 @@ body {
     --img-login-bg: url("{{ asset("assets/images/img-login.jpg") }}");
     --icon-close: url("{{ asset("assets/images/x.svg") }}");
 }
+
+@mixin elevated-box($padding: 8px 14px) {
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+    border-radius: 6px;
+    overflow: hidden;
+    background-color: #fff;
+    border: none;
+    padding: $padding;
+}
+
+@mixin dropdown-form-action {
+    display: inline-block;
+}
