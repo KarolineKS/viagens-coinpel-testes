@@ -6,8 +6,12 @@ use App\Http\Controllers\Auth\ChangePasswordController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
+
 Route::get('/', function () {
-    return view('welcome');
+    if (Auth::check()) {
+        return redirect()->route('dashboard');
+    }
+    return view('auth.login');
 });
 
 Route::get('/login', [LoginController::class, 'index'])->name('login');
@@ -16,6 +20,7 @@ Route::post('/login', [LoginController::class, 'login'])->name('login');
 
 Route::middleware('auth')->group(function () {
     Route::post('/change-password', [ChangePasswordController::class, 'store'])->name('change-password');
+
     Route::post('/logout', function () {
         Auth::logout();
         request()->session()->invalidate();
