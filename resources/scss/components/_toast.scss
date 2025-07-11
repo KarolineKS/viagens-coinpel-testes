@@ -20,8 +20,8 @@
     &.toast-success {
         border-left-color: #28a745;
 
-        .toast-icon--success {
-            color: #28a745;
+        .toast-header svg {
+            fill: #28a745;
         }
     }
 }

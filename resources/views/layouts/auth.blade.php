@@ -28,6 +28,7 @@
     <x-custom-alert type="warning" :message="session('warning')" />
     @endif
 
+
     @stack('scripts')
 </body>
 

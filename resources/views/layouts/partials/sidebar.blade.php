@@ -9,43 +9,43 @@
         <ul>
             <li class="sidebar__item">
                 <a href="#" class="sidebar__link">
-                    <x-icon name="icon-users" class="sidebar__icon" />
+                    <x-icon name="clientes" class="sidebar__icon" />
                     <span>Usuários</span>
                 </a>
             </li>
             <li class="sidebar__item">
                 <a href="#" class="sidebar__link">
-                    <x-icon name="icon-motorista" class="sidebar__icon" />
+                    <x-icon name="motorista" class="sidebar__icon" />
                     <span>Motoristas</span>
                 </a>
             </li>
             <li class="sidebar__item">
                 <a href="#" class="sidebar__link">
-                    <x-icon name="icon-grafh" class="sidebar__icon" />
+                    <x-icon name="estatisticas" class="sidebar__icon" />
                     <span>Estatísticas</span>
                 </a>
             </li>
             <li class="sidebar__item">
                 <a href="{{ route('vehicles.index') }}" class="sidebar__link">
-                    <x-icon name="icon-bus" class="sidebar__icon" />
+                    <x-icon name="veiculos" class="sidebar__icon" />
                     <span>Veículos</span>
                 </a>
             </li>
             <li class="sidebar__item">
                 <a href="#" class="sidebar__link">
-                    <x-icon name="icon-viagens" class="sidebar__icon" />
+                    <x-icon name="viagens" class="sidebar__icon" />
                     <span>Viagens</span>
                 </a>
             </li>
             <li class="sidebar__item">
                 <a href="#" class="sidebar__link">
-                    <x-icon name="icon-contract" class="sidebar__icon" />
+                    <x-icon name="contratos" class="sidebar__icon" />
                     <span>Contratos</span>
                 </a>
             </li>
             <li class="sidebar__item">
                 <a href="#" class="sidebar__link">
-                    <x-icon name="icon-wallet" class="sidebar__icon" />
+                    <x-icon name="pacotes" class="sidebar__icon" />
                     <span>Pacotes</span>
                 </a>
             </li>

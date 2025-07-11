@@ -24,6 +24,13 @@
         </div>
     </div>
 
+    <div class="toast-container position-fixed top-0 end-0 p-3">
+        @if (session('success'))
+        <x-toast type="success" :message="session('success')" />
+        @endif
+    </div>
+
+
     @stack('scripts')
 </body>
 

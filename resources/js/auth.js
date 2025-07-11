@@ -3,10 +3,13 @@ document.addEventListener("DOMContentLoaded", () => {
         "changePasswordModal"
     );
     if (changePasswordModalEl) {
-        const changePasswordModal = new bootstrap.Modal(changePasswordModalEl, {
-            backdrop: "static",
-            keyboard: false,
-        });
+        const changePasswordModal = new window.bootstrap.Modal(
+            changePasswordModalEl,
+            {
+                backdrop: "static",
+                keyboard: false,
+            }
+        );
         changePasswordModal.show();
 
         const closeButton = changePasswordModalEl.querySelector(
@@ -21,7 +24,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     "mandatory-change-alert"
                 );
                 if (alertModalEl) {
-                    const alertModal = new bootstrap.Modal(alertModalEl);
+                    const alertModal = new window.bootstrap.Modal(alertModalEl);
                     alertModal.show();
                 }
             });
@@ -30,7 +33,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const sessionAlertModalEl = document.getElementById("sessionAlertModal");
     if (sessionAlertModalEl) {
-        const sessionAlertModal = new bootstrap.Modal(sessionAlertModalEl);
+        const sessionAlertModal = new window.bootstrap.Modal(
+            sessionAlertModalEl
+        );
         sessionAlertModal.show();
     }
 

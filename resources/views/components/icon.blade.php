@@ -1,8 +1,9 @@
 @props([
-'name',
-'class' => '',
+'name' => '',
+'class' => ''
 ])
 
+@if ($name)
 @php
 $iconPath = public_path('images/icons/' . $name . '.svg');
 $svgContent = '';
@@ -16,4 +17,5 @@ $svgContent = file_get_contents($iconPath);
 <div {{ $attributes->merge(['class' => 'icon-wrapper ' . $class]) }}>
     {!! $svgContent !!}
 </div>
+@endif
 @endif

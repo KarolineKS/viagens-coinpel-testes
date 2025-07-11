@@ -2,20 +2,34 @@
 
 @php
 $config = [
-'error' => ['title' => 'Ocorreu um Erro'],
-'warning' => ['title' => 'Atenção!'],
-'info' => ['title' => 'Informação'],
-'success' => ['title' => 'Sucesso!'],
+'error' => [
+'title' => 'Ocorreu um Erro',
+'icon' => 'x-circle',
+],
+'warning' => [
+'title' => 'Atenção!',
+'icon' => 'exclamation-triangle',
+],
+'info' => [
+'title' => 'Informação',
+'icon' => 'info-circle',
+],
+'success' => [
+'title' => 'Sucesso!',
+'icon' => 'check-circle',
+],
 ];
 
 $title = $config[$type]['title'] ?? '';
+$iconName = $config[$type]['icon'] ?? '';
+
 @endphp
 
 <div class="modal fade" id="{{ $id }}" tabindex="-1" aria-labelledby="{{ $id }}Label" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content custom-alert-content custom-alert-content--{{ $type }}">
             <div class="custom-alert-header">
-                <x-icon :type="$type" />
+                <x-icon :name="$iconName" />
             </div>
             <div class="modal-body custom-alert-body">
                 <h2 class="custom-alert-title">{{ $title }}</h2>
