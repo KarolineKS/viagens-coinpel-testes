@@ -1,11 +1,8 @@
 @extends('layouts.app')
 
-@section('header-button')
-<button class="btn btn-primary">
-    <x-icon name="plus" />
-    <span>Adicionar veículo</span>
-</button>
-@endsection
+@section('action-type', 'offcanvas')
+@section('action-target', '#vehicleFormOffcanvas')
+@section('action-entity', 'veículo')
 
 @section('search-placeholder', 'Pesquisar veículo')
 
@@ -54,4 +51,6 @@
         </tbody>
     </table>
 </div>
+
+@include('vehicles.partials.form-offcanvas')
 @endsection
