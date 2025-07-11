@@ -1,10 +1,4 @@
-%elevated-box {
-    box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
-    border-radius: 6px;
-    overflow: hidden;
-    background-color: #fff;
-    border: none;
-}
+@import "./_variables.scss";
 
 .app-layout {
     display: flex;
@@ -78,7 +72,6 @@
 .header {
     background-color: #ffffff;
     padding: 30px 25px;
-    border-bottom: 1px solid #eef0f3;
 
     &__actions {
         display: flex;
@@ -90,13 +83,13 @@
         margin-right: 25px;
 
         .input-group {
-            @extend %elevated-box;
+            @include elevated-box($padding: 10px 14px);
         }
 
         .form-control {
             width: 336px;
             border: none;
-            padding: 10px 14px;
+            padding: 0;
 
             &:focus {
                 box-shadow: none;
@@ -113,6 +106,7 @@
         .btn {
             border: none;
             background-color: transparent;
+            padding: 0;
 
             &:hover {
                 background-color: #f8f9fa;
@@ -160,7 +154,7 @@
         font-weight: 500;
         line-height: normal;
         padding: 12px 35px;
-        @extend %elevated-box;
+        @include elevated-box($padding: 12px 35px);
 
         &:hover {
             background-color: #f8f9fa;
@@ -186,28 +180,15 @@
         }
 
         .dropdown-item {
-            color: #6c757d;
-            padding: 8px 14px;
-            @extend %elevated-box;
-            transition: transform 0.2s ease;
-            text-decoration: none;
-
             &:first-child {
                 margin-bottom: 10px;
                 width: 75%;
-            }
-
-            &:hover,
-            &:focus {
-                background-color: #fff;
-                color: #212529;
-                transform: translateY(-2px);
+                @include elevated-box;
             }
         }
 
         form {
             display: inline-block;
-            @extend %elevated-box;
             border-radius: 8px;
             transition: transform 0.2s ease;
 
@@ -219,6 +200,8 @@
             button.dropdown-item {
                 box-shadow: none;
                 background: transparent;
+                @include elevated-box;
+
                 &:hover,
                 &:focus {
                     color: #212529;
