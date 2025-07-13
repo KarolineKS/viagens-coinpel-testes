@@ -9,3 +9,23 @@ document.addEventListener("DOMContentLoaded", function () {
     });
     toastList.forEach((toast) => toast.show());
 });
+
+document.addEventListener("DOMContentLoaded", function () {
+    const vehicleOffcanvas = document.getElementById("vehicleFormOffcanvas");
+
+    if (vehicleOffcanvas) {
+        if (vehicleOffcanvas.dataset.autoOpen === "true") {
+            const offcanvas = new bootstrap.Offcanvas(vehicleOffcanvas);
+            offcanvas.show();
+        }
+
+        vehicleOffcanvas.addEventListener("hidden.bs.offcanvas", function () {
+            const url = new URL(window.location);
+
+            if (url.searchParams.has("edit")) {
+                url.searchParams.delete("edit");
+                window.location.href = url.toString();
+            }
+        });
+    }
+});
