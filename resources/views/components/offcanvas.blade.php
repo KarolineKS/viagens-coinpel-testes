@@ -19,14 +19,11 @@
 
         @if($showDeleteBtn && $deleteRoute)
         <div class="offcanvas-header-actions">
-            <form method="POST" action="{{ $deleteRoute }}" style="display: inline;">
-                @csrf
-                @method('DELETE')
-                <button type="submit" class="btn-delete"
-                    onclick="return confirm('Tem certeza que deseja deletar este veículo?')">
-                    <x-icon name="delete" />
-                </button>
-            </form>
+            <button type="button" class="btn-delete"
+                data-bs-toggle="modal"
+                data-bs-target="#confirmDeleteOffcanvasModal">
+                <x-icon name="delete" />
+            </button>
         </div>
         @endif
     </div>

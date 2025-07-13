@@ -38,19 +38,24 @@ class VehicleController extends Controller
      */
     public function store(StoreVehicleRequest $request): RedirectResponse
     {
-        $data = $request->validated();
+        try {
+            $data = $request->validated();
 
-        $amenities = $data['amenities'] ?? [];
-        unset($data['amenities']);
+            $amenities = $data['amenities'] ?? [];
+            unset($data['amenities']);
 
-        foreach ($amenities as $amenity) {
-            $data[$amenity] = true;
+            foreach ($amenities as $amenity) {
+                $data[$amenity] = true;
+            }
+
+            $vehicle = Vehicle::create($data);
+
+            return redirect()->route('vehicles.index')
+                ->with('success', 'Veículo "' . $vehicle->prefix . '" cadastrado com sucesso!');
+        } catch (\Exception $e) {
+            return redirect()->route('vehicles.index')
+                ->with('error', 'Erro ao cadastrar veículo. Tente novamente.');
         }
-
-        Vehicle::create($data);
-
-        return redirect()->route('vehicles.index')
-            ->with('success', 'Veículo cadastrado com sucesso.');
     }
 
     /**
@@ -58,7 +63,7 @@ class VehicleController extends Controller
      */
     public function show(Vehicle $vehicle)
     {
-        //
+        return response()->json($vehicle);
     }
 
     /**
@@ -74,30 +79,34 @@ class VehicleController extends Controller
      */
     public function update(UpdateVehicleRequest $request, Vehicle $vehicle): RedirectResponse
     {
-        $data = $request->validated();
+        try {
+            $data = $request->validated();
 
-        $vehicle->update([
-            'has_internet' => false,
-            'has_wc' => false,
-            'has_power_outlet' => false,
-            'has_ac' => false,
-            'has_fridge' => false,
-            'has_heating' => false,
-            'has_video' => false,
-        ]);
+            $vehicle->update([
+                'has_internet' => false,
+                'has_wc' => false,
+                'has_power_outlet' => false,
+                'has_ac' => false,
+                'has_fridge' => false,
+                'has_heating' => false,
+                'has_video' => false,
+            ]);
 
+            $amenities = $data['amenities'] ?? [];
+            unset($data['amenities']);
 
-        $amenities = $data['amenities'] ?? [];
-        unset($data['amenities']);
+            foreach ($amenities as $amenity) {
+                $data[$amenity] = true;
+            }
 
-        foreach ($amenities as $amenity) {
-            $data[$amenity] = true;
+            $vehicle->update($data);
+
+            return redirect()->route('vehicles.index')
+                ->with('success', 'Veículo "' . $vehicle->prefix . '" atualizado com sucesso!');
+        } catch (\Exception $e) {
+            return redirect()->route('vehicles.index', ['edit' => $vehicle->id])
+                ->with('error', 'Erro ao atualizar veículo. Tente novamente.');
         }
-
-        $vehicle->update($data);
-
-        return redirect()->route('vehicles.index')
-            ->with('success', 'Veículo atualizado com sucesso.');
     }
 
     /**
@@ -105,9 +114,15 @@ class VehicleController extends Controller
      */
     public function destroy(Vehicle $vehicle): RedirectResponse
     {
-        $vehicle->delete();
+        try {
+            $prefix = $vehicle->prefix;
+            $vehicle->delete();
 
-        return redirect()->route('vehicles.index')
-            ->with('success', 'Veículo deletado com sucesso.');
+            return redirect()->route('vehicles.index')
+                ->with('success', 'Veículo "' . $prefix . '" deletado com sucesso!');
+        } catch (\Exception $e) {
+            return redirect()->route('vehicles.index')
+                ->with('error', 'Erro ao deletar veículo. Tente novamente.');
+        }
     }
 }

@@ -28,8 +28,27 @@
         @if (session('success'))
         <x-toast type="success" :message="session('success')" />
         @endif
+
+        @if (session('error'))
+        <x-toast type="danger" :message="session('error')" />
+        @endif
+
+        @if (session('warning'))
+        <x-toast type="warning" :message="session('warning')" />
+        @endif
+
+        @if (session('info'))
+        <x-toast type="info" :message="session('info')" />
+        @endif
     </div>
 
+    @if (session('alert_error'))
+    <x-custom-alert type="error" :message="session('alert_error')" />
+    @elseif (session('alert_warning'))
+    <x-custom-alert type="warning" :message="session('alert_warning')" />
+    @elseif (session('alert_info'))
+    <x-custom-alert type="info" :message="session('alert_info')" />
+    @endif
 
     @stack('scripts')
 </body>

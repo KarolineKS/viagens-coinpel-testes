@@ -42,15 +42,12 @@
                             </a>
                         </li>
                         <li>
-                            <form method="POST" action="{{ route('vehicles.destroy', $vehicle) }}" class="d-inline">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="dropdown-item"
-                                    onclick="return confirm('Tem certeza que deseja deletar este veículo?')">
-                                    <x-icon name="delete" class="me-2" />
-                                    Deletar veículo
-                                </button>
-                            </form>
+                            <button type="button" class="dropdown-item"
+                                data-bs-toggle="modal"
+                                data-bs-target="#confirmDeleteModal{{ $vehicle->id }}">
+                                <x-icon name="delete" class="me-2" />
+                                Deletar veículo
+                            </button>
                         </li>
                     </ul>
                 </div>
@@ -65,5 +62,17 @@
 </x-table>
 
 @include('vehicles.partials.form-offcanvas', ['autoOpen' => isset($editVehicle)])
+
+
+@foreach ($vehicles as $vehicle)
+<x-custom-alert
+    type="warning"
+    :id="'confirmDeleteModal' . $vehicle->id"
+    :message="'Tem certeza que deseja deletar o veículo ' . $vehicle->prefix . ' (' . $vehicle->license_plate . ')?'"
+    :showCancel="true"
+    :confirmAction="route('vehicles.destroy', $vehicle)"
+    confirmText="Deletar veículo"
+    cancelText="Cancelar" />
+@endforeach
 
 @endsection
