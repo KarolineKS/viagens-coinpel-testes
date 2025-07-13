@@ -1,22 +1,34 @@
 @props([
 'id',
 'title' => '',
+'autoOpen' => false,
+'showDeleteBtn' => false,
+'deleteRoute' => null,
+'isEdit' => false,
 ])
 
-<div class="offcanvas offcanvas-end" tabindex="-1" id="{{ $id }}" aria-labelledby="{{ $id }}Label">
+<div class="offcanvas offcanvas-end" tabindex="-1" id="{{ $id }}" aria-labelledby="{{ $id }}Label"
+    @if($autoOpen) data-auto-open="true" @endif>
     <div class="offcanvas-header">
 
         <button type="button" class="close-btn" data-bs-dismiss="offcanvas" aria-label="Close">
             <x-icon name="x" />
         </button>
 
-        <h5 class="offcanvas-title" id="{{ $id }}Label">{{ $title }}</h5>
+        <h5 class="offcanvas-title {{ !$isEdit ? 'text-center flex-grow-1' : '' }}" id="{{ $id }}Label">{{ $title }}</h5>
 
+        @if($showDeleteBtn && $deleteRoute)
         <div class="offcanvas-header-actions">
-            <button type="button" class="btn-delete" id="deleteVehicleBtn">
-                <x-icon name="delete" />
-            </button>
+            <form method="POST" action="{{ $deleteRoute }}" style="display: inline;">
+                @csrf
+                @method('DELETE')
+                <button type="submit" class="btn-delete"
+                    onclick="return confirm('Tem certeza que deseja deletar este veículo?')">
+                    <x-icon name="delete" />
+                </button>
+            </form>
         </div>
+        @endif
     </div>
 
     @if(isset($body))
