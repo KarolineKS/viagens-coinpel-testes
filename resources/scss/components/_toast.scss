@@ -1,3 +1,5 @@
+@import "../variables";
+
 @keyframes slideInRight {
     from {
         transform: translateX(100%);
@@ -18,10 +20,34 @@
     animation: slideInRight 0.4s ease-out forwards;
 
     &.toast-success {
-        border-left-color: #28a745;
+        border-left-color: $success;
 
         .toast-header svg {
-            fill: #28a745;
+            fill: $success;
+        }
+    }
+
+    &.toast-danger {
+        border-left-color: $danger;
+
+        .toast-header svg {
+            fill: $danger;
+        }
+    }
+
+    &.toast-warning {
+        border-left-color: $warning;
+
+        .toast-header svg {
+            fill: $warning;
+        }
+    }
+
+    &.toast-info {
+        border-left-color: $info;
+
+        .toast-header svg {
+            fill: $info;
         }
     }
 }
@@ -45,6 +71,8 @@
         &:hover {
             --bs-btn-close-opacity: 1;
         }
+
+        @include icon-btn(13px);
     }
 }
 
