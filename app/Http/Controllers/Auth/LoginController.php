@@ -25,6 +25,13 @@ class LoginController extends Controller
     public function login(LoginRequest $request): Response
     {
         if (!$request->tryToLogin()) {
+            // Verifica o motivo do falso retorno
+            if ($request->loginFailureReason === 'blocked') {
+                return back()
+                    ->withInput($request->only('email'))
+                    ->with('error', 'Sua conta foi bloqueada. Entre em contato com o administrador.');
+            }
+
             return back()
                 ->withInput($request->only('email'))
                 ->with('error', 'Usuário não encontrado ou senha incorreta!');
