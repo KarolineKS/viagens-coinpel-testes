@@ -23,5 +23,9 @@ class DatabaseSeeder extends Seeder
             'first_login' => true,
             'is_blocked' => false,
         ]);
+
+        $this->call([
+            DriverSeeder::class,
+        ]);
     }
 }
