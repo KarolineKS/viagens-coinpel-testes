@@ -3,8 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Vehicle;
-use App\Http\Requests\StoreVehicleRequest;
-use App\Http\Requests\UpdateVehicleRequest;
+use App\Http\Requests\VehicleRequest;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 
@@ -36,7 +35,7 @@ class VehicleController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreVehicleRequest $request): RedirectResponse
+    public function store(VehicleRequest $request): RedirectResponse
     {
         try {
             $data = $request->validated();
@@ -77,7 +76,7 @@ class VehicleController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateVehicleRequest $request, Vehicle $vehicle): RedirectResponse
+    public function update(VehicleRequest $request, Vehicle $vehicle): RedirectResponse
     {
         try {
             $data = $request->validated();
