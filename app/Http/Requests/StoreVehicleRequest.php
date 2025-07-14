@@ -27,9 +27,9 @@ class StoreVehicleRequest extends FormRequest
             'license_plate' => 'required|string|max:10|unique:vehicles,license_plate',
             'model' => 'required|string|max:255',
             'chassis' => 'required|string|max:255|unique:vehicles,chassis',
-            'capacity' => 'required|integer|min:1|max:100',
+            'capacity' => 'required|integer|min:1',
             'vehicle_type' => 'required|string|max:255',
-            'seating_layout' => 'required|string|max:255',
+            'seating_layout' => 'required|string|in:Semi-Leito,Leito,Convencional',
             'year' => 'required|integer|digits:4|min:1950|max:' . (date('Y') + 1),
             'amenities' => 'nullable|array',
         ];
@@ -64,13 +64,12 @@ class StoreVehicleRequest extends FormRequest
             'capacity.required' => 'A capacidade é obrigatória.',
             'capacity.integer' => 'A capacidade deve ser um número inteiro.',
             'capacity.min' => 'A capacidade deve ser pelo menos 1.',
-            'capacity.max' => 'A capacidade não pode ser maior que 100.',
 
             'vehicle_type.required' => 'O tipo de veículo é obrigatório.',
             'vehicle_type.max' => 'O tipo de veículo não pode ter mais de 255 caracteres.',
 
             'seating_layout.required' => 'A bancada é obrigatória.',
-            'seating_layout.max' => 'A bancada não pode ter mais de 255 caracteres.',
+            'seating_layout.in' => 'A bancada deve ser um dos seguintes valores: Semi-Leito, Leito, Convencional.',
 
             'year.required' => 'O ano é obrigatório.',
             'year.integer' => 'O ano deve ser um número inteiro.',
