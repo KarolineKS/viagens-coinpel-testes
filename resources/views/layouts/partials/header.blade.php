@@ -55,7 +55,7 @@
             </button>
             <div class="dropdown-menu dropdown-menu-end" aria-labelledby="userMenuButton">
                 <div class="dropdown-content-wrapper">
-                    <a class="dropdown-item d-flex align-items-center gap-2" href="#">
+                    <a class="dropdown-item d-flex align-items-center gap-2" href="{{ route('users.index') }}">
                         <x-icon name="users" />
                         <span>Usuários</span>
                     </a>

@@ -81,3 +81,21 @@ body {
         border-color: $primary;
     }
 }
+
+@mixin alert-variant($name, $color, $bg-color) {
+    &--#{$name} {
+        .custom-alert-header {
+            background-color: $bg-color;
+            .icon-wrapper svg {
+                fill: $color;
+            }
+        }
+        .btn-confirm-variant {
+            background-color: $color;
+            color: #fff;
+            &:hover {
+                background-color: darken($color, 5%);
+            }
+        }
+    }
+}

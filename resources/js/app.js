@@ -1,7 +1,9 @@
 import "./bootstrap";
 import "./auth.js";
 import "./vehicle.js";
+import "./users.js";
 
+// Toast functionality
 document.addEventListener("DOMContentLoaded", function () {
     const toastElList = [].slice.call(document.querySelectorAll(".toast"));
     const toastList = toastElList.map(function (toastEl) {
