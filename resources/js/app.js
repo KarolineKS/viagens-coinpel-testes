@@ -2,6 +2,7 @@ import "./bootstrap";
 import "./auth.js";
 import "./vehicle.js";
 import "./users.js";
+import "./drivers.js";
 
 // Toast functionality
 document.addEventListener("DOMContentLoaded", function () {
