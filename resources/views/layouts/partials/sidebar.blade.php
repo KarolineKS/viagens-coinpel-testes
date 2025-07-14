@@ -8,7 +8,7 @@
     <nav class="sidebar__nav">
         <ul>
             <li class="sidebar__item">
-                <a href="#" class="sidebar__link">
+                <a href="{{ route('users.index') }}" class="sidebar__link">
                     <x-icon name="clientes" class="sidebar__icon" />
                     <span>Usuários</span>
                 </a>

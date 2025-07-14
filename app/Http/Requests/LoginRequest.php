@@ -17,6 +17,11 @@ use Illuminate\Foundation\Http\FormRequest;
 class LoginRequest extends FormRequest
 {
     /**
+     * Reason why login failed
+     */
+    public ?string $loginFailureReason = null;
+
+    /**
      * Determine if the user is authorized to make this request.
      */
 
@@ -53,6 +58,16 @@ class LoginRequest extends FormRequest
 
             $user = Auth::user();
 
+            if ($user->is_blocked) {
+                Auth::logout();
+
+                $this->loginFailureReason = 'blocked';
+
+                session()->put('loginFailureReason', $this->loginFailureReason);
+
+                return false;
+            }
+
             if ($user->first_login) {
                 session()->put(SessionKeys::REQUIRE_PASSWORD_CHANGE, true);
             }
@@ -60,6 +75,7 @@ class LoginRequest extends FormRequest
             return true;
         }
 
+        $this->loginFailureReason = 'invalidCredentials';
         return false;
     }
 

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\VehicleController;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\Auth\ChangePasswordController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
@@ -18,7 +19,7 @@ Route::get('/login', [LoginController::class, 'index'])->name('login');
 Route::post('/login', [LoginController::class, 'login'])->name('login');
 
 
-Route::middleware('auth')->group(function () {
+Route::middleware(['auth', 'user.not.blocked'])->group(function () {
     Route::post('/change-password', [ChangePasswordController::class, 'store'])->name('change-password');
 
     Route::post('/logout', function () {
@@ -30,10 +31,13 @@ Route::middleware('auth')->group(function () {
 });
 
 
-Route::middleware(['auth', 'password.changed'])->group(function () {
+Route::middleware(['auth', 'user.not.blocked', 'password.changed'])->group(function () {
     Route::get('/dashboard', function () {
         return view('dashboard');
     })->name('dashboard');
 
     Route::resource('vehicles', VehicleController::class);
+
+    Route::resource('users', UserController::class);
+    Route::patch('users/{user}/toggle-block', [UserController::class, 'toggleBlock'])->name('users.toggle-block');
 });
