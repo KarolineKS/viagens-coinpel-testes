@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\UserRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -18,7 +19,7 @@ class UserController extends Controller
     {
         $query = User::query();
 
-        // Filtro de pesquisa
+
         if ($request->filled('search')) {
             $search = $request->search;
             $query->where(function ($q) use ($search) {
@@ -29,11 +30,11 @@ class UserController extends Controller
 
         $users = $query->latest()->paginate(10);
 
-        // Verifica se deve abrir o offcanvas
+
         $autoOpen = $request->has('create');
         $editUser = null;
 
-        // Se está editando um usuário
+
         if ($request->has('edit')) {
             $editUser = User::find($request->edit);
             $autoOpen = true;
@@ -45,26 +46,12 @@ class UserController extends Controller
     /**
      * Store a newly created user in storage.
      */
-    public function store(Request $request)
+    public function store(UserRequest $request)
     {
-        $validated = $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users',
-            'password' => 'required|string|min:8',
-        ], [
-            'name.required' => 'O nome é obrigatório.',
-            'name.max' => 'O nome deve ter no máximo 255 caracteres.',
-            'email.required' => 'O e-mail é obrigatório.',
-            'email.email' => 'Digite um e-mail válido.',
-            'email.unique' => 'Este e-mail já está em uso.',
-            'password.required' => 'A senha é obrigatória.',
-            'password.min' => 'A senha deve ter no mínimo 8 caracteres.',
-        ]);
-
         User::create([
-            'name' => $validated['name'],
-            'email' => $validated['email'],
-            'password' => Hash::make($validated['password']),
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
             'first_login' => true,
         ]);
 
@@ -75,28 +62,15 @@ class UserController extends Controller
     /**
      * Update the specified user in storage.
      */
-    public function update(Request $request, User $user)
+    public function update(UserRequest $request, User $user)
     {
-        $validated = $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users,email,' . $user->id,
-            'password' => 'nullable|string|min:8',
-        ], [
-            'name.required' => 'O nome é obrigatório.',
-            'name.max' => 'O nome deve ter no máximo 255 caracteres.',
-            'email.required' => 'O e-mail é obrigatório.',
-            'email.email' => 'Digite um e-mail válido.',
-            'email.unique' => 'Este e-mail já está em uso.',
-            'password.min' => 'A senha deve ter no mínimo 8 caracteres.',
-        ]);
-
         $updateData = [
-            'name' => $validated['name'],
-            'email' => $validated['email'],
+            'name' => $request->name,
+            'email' => $request->email,
         ];
 
         if ($request->filled('password')) {
-            $updateData['password'] = Hash::make($validated['password']);
+            $updateData['password'] = Hash::make($request->password);
         }
 
         $user->update($updateData);
