@@ -4,6 +4,21 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
+/**
+ * Handle Vehicle Request
+ * 
+ * @property-read string $identification_name
+ * @property-read string $prefix
+ * @property-read string $license_plate
+ * @property-read string $model
+ * @property-read string $chassis
+ * @property-read int $capacity
+ * @property-read string $vehicle_type
+ * @property-read string $seating_layout
+ * @property-read int $year
+ * @property-read array $amenities
+ */
+
 class VehicleRequest extends FormRequest
 {
     /**
