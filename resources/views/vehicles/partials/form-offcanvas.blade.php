@@ -37,7 +37,7 @@
                     value="{{ old('identification_name', isset($editVehicle) ? $editVehicle->identification_name : '') }}" required>
 
                 @error('identification_name')
-                <span class="text-danger small">{{ $message }}</span>
+                <span class="text-danger small d-block mt-1">{{ $message }}</span>
                 @enderror
             </div>
 
@@ -48,7 +48,7 @@
                     value="{{ old('prefix', isset($editVehicle) ? $editVehicle->prefix : '') }}" required>
 
                 @error('prefix')
-                <span class="text-danger small">{{ $message }}</span>
+                <span class="text-danger small d-block mt-1">{{ $message }}</span>
                 @enderror
             </div>
 
@@ -59,7 +59,7 @@
                     value="{{ old('license_plate', isset($editVehicle) ? $editVehicle->license_plate : '') }}" required>
 
                 @error('license_plate')
-                <span class="text-danger small">{{ $message }}</span>
+                <span class="text-danger small d-block mt-1">{{ $message }}</span>
                 @enderror
             </div>
 
@@ -69,7 +69,7 @@
                     id="model" name="model"
                     value="{{ old('model', isset($editVehicle) ? $editVehicle->model : '') }}" required>
                 @error('model')
-                <span class="text-danger small">{{ $message }}</span>
+                <span class="text-danger small d-block mt-1">{{ $message }}</span>
                 @enderror
             </div>
 
@@ -78,8 +78,9 @@
                 <input type="text" class="form-group__input @error('chassis') is-invalid @enderror"
                     id="chassis" name="chassis"
                     value="{{ old('chassis', isset($editVehicle) ? $editVehicle->chassis : '') }}" required>
+
                 @error('chassis')
-                <span class="text-danger small">{{ $message }}</span>
+                <span class="text-danger small d-block mt-1">{{ $message }}</span>
                 @enderror
             </div>
 
@@ -88,8 +89,9 @@
                 <input type="number" class="form-group__input @error('capacity') is-invalid @enderror"
                     id="capacity" name="capacity"
                     value="{{ old('capacity', isset($editVehicle) ? $editVehicle->capacity : '') }}" required>
+
                 @error('capacity')
-                <span class="text-danger small">{{ $message }}</span>
+                <span class="text-danger small d-block mt-1">{{ $message }}</span>
                 @enderror
             </div>
 
@@ -98,8 +100,9 @@
                 <input type="text" class="form-group__input @error('vehicle_type') is-invalid @enderror"
                     id="vehicle_type" name="vehicle_type"
                     value="{{ old('vehicle_type', isset($editVehicle) ? $editVehicle->vehicle_type : '') }}" required>
+
                 @error('vehicle_type')
-                <span class="text-danger small">{{ $message }}</span>
+                <span class="text-danger small d-block mt-1">{{ $message }}</span>
                 @enderror
             </div>
 
@@ -109,16 +112,20 @@
                     id="seating_layout" name="seating_layout" required>
                     @php
                     $currentSeating = old('seating_layout', isset($editVehicle) ? $editVehicle->seating_layout : 'Semi-Leito');
+
                     $isSemiLeito = $currentSeating === 'Semi-Leito';
+
                     $isLeito = $currentSeating === 'Leito';
+
                     $isConvencional = $currentSeating === 'Convencional';
                     @endphp
+
                     <option value="Semi-Leito" @if($isSemiLeito) selected @endif>Semi-Leito</option>
                     <option value="Leito" @if($isLeito) selected @endif>Leito</option>
                     <option value="Convencional" @if($isConvencional) selected @endif>Convencional</option>
                 </select>
                 @error('seating_layout')
-                <span class="text-danger small">{{ $message }}</span>
+                <span class="text-danger small d-block mt-1">{{ $message }}</span>
                 @enderror
             </div>
 
@@ -128,7 +135,7 @@
                     id="year" name="year" min="1900" max="{{ date('Y') + 1 }}"
                     value="{{ old('year', isset($editVehicle) ? $editVehicle->year : '') }}" required>
                 @error('year')
-                <span class="text-danger small">{{ $message }}</span>
+                <span class="text-danger small d-block mt-1">{{ $message }}</span>
                 @enderror
             </div>
 
