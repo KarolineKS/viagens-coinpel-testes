@@ -64,3 +64,20 @@ body {
         pointer-events: none;
     }
 }
+
+.form-control,
+.form-select,
+.form-group__input {
+    &:focus {
+        border-color: rgba($primary, 0.5);
+        box-shadow: 0 0 0 0.1rem rgba($primary, 0.2);
+        outline: none;
+    }
+}
+
+.form-check-input {
+    &:checked {
+        background-color: $primary;
+        border-color: $primary;
+    }
+}
