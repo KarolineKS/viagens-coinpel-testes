@@ -1,0 +1,202 @@
+// resources/scss/components/_offcanvas.scss
+@import "../variables";
+
+.offcanvas {
+    border-left: 1px solid #dee2e6;
+    box-shadow: 0 0 1rem rgba(0, 0, 0, 0.1);
+    width: 450px;
+}
+
+.offcanvas-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+    padding: 30px 30px 30px;
+    flex-shrink: 0;
+
+    .offcanvas-header-actions {
+        display: flex;
+        align-items: center;
+        width: 40px;
+        justify-content: flex-start;
+    }
+
+    .offcanvas-title {
+        color: #383838;
+        font-size: 20px;
+        font-style: normal;
+        font-weight: 500;
+        line-height: normal;
+
+        &.text-center {
+            text-align: center;
+        }
+
+        &.flex-grow-1 {
+            flex-grow: 1;
+        }
+    }
+
+    .close-btn {
+        @include icon-btn(24px);
+    }
+}
+
+.offcanvas-body {
+    overflow-y: auto;
+    padding: 0px;
+}
+
+.offcanvas-footer {
+    .btn-primary,
+    .btn-outline-secondary {
+        width: 100%;
+        padding: 10px;
+        font-size: 16px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: normal;
+    }
+
+    .btn-outline-secondary {
+        color: #212121;
+        border-radius: 6px;
+        border: 1px solid #212121;
+
+        &:hover {
+            background-color: #f4cdcd;
+            color: #212121;
+        }
+    }
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 24px;
+
+    &__label {
+        color: #9e9e9e;
+        font-size: 14px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: normal;
+        margin-bottom: 13px;
+    }
+
+    &__input,
+    &__select {
+        border-radius: 6px;
+        border: 1px solid #e5e5e5;
+        background: #fff;
+        color: #383838;
+        font-size: 14px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: normal;
+        padding: 10px 20px;
+    }
+}
+
+.btn-delete {
+    @include icon-btn(24px);
+    border-radius: 4px;
+    transition: all 0.2s ease;
+
+    svg {
+        path {
+            transition: stroke 0.2s ease;
+        }
+    }
+
+    &:hover {
+        background-color: rgba(231, 76, 60, 0.05);
+
+        svg {
+            path {
+                stroke: #dc7471;
+            }
+        }
+    }
+}
+
+.amenity-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 5px;
+    border: 1px solid #e5e5e5;
+    background: #fff;
+    color: #9e9e9e;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    padding: 10px;
+
+    &:hover {
+        background: #f0f0f0;
+        color: #6c757d;
+        cursor: pointer;
+    }
+
+    .icon-wrapper {
+        width: 26px;
+        height: 26px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        svg {
+            path {
+                fill: #9e9e9e;
+            }
+        }
+    }
+}
+
+.btn-check:checked + .amenity-btn {
+    color: $primary;
+    border-radius: 5px;
+    border: 1px solid $primary;
+    background: #fff;
+
+    .icon-wrapper {
+        svg {
+            path {
+                fill: $primary;
+            }
+        }
+    }
+}
+
+.offcanvas.offcanvas-end {
+    background: #fff;
+    box-shadow: -6px 0px 23px 0px rgba(0, 0, 0, 0.15);
+    width: 450px;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+
+    .offcanvas-body {
+        padding: 0 30px;
+        overflow-y: auto;
+        flex: 1;
+        min-height: 0;
+    }
+
+    .offcanvas-footer {
+        padding: 30px 30px 30px;
+        display: flex;
+        gap: 15px;
+        flex-direction: column;
+        align-items: center;
+        flex-shrink: 0;
+    }
+
+    .row {
+        margin-left: 0;
+        margin-right: 0;
+    }
+}

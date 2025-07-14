@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Auth;
  * Password change request validation.
  *
  * Validates password change data including confirmation and security rules.
- *
+ * 
  * @property-read string $password New password field
  * @property-read string $password_confirmation Password confirmation field
  */

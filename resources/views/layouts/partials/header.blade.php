@@ -1,10 +1,23 @@
 <header class="header d-flex justify-content-between align-items-center">
 
     <div class="d-flex align-items-center header__actions">
-        <a href="@yield('action-link', '#')" class="btn btn-primary d-flex align-items-center gap-2 header__add-btn">
-            <span>+</span>
-            <span>@yield('action-text', 'Adicionar')</span>
+        @php
+        $actionType = View::getSection('action-type', 'link');
+        $actionTarget = View::getSection('action-target', '#');
+        $actionEntity = View::getSection('action-entity', '');
+        @endphp
+
+        @if ($actionType === 'modal' || $actionType === 'offcanvas')
+        <button class="btn btn-primary d-flex align-items-center gap-2 header__add-btn" data-bs-toggle="{{ $actionType }}" data-bs-target="{{ $actionTarget }}">
+            <x-icon name="plus" />
+            <span>Adicionar {{ $actionEntity }}</span>
+        </button>
+        @else
+        <a href="{{ $actionTarget }}" class="btn btn-primary d-flex align-items-center gap-2 header__add-btn">
+            <x-icon name="plus" />
+            <span>Adicionar {{ $actionEntity }}</span>
         </a>
+        @endif
 
         <button class="btn header__filter-btn">
             Filtrar

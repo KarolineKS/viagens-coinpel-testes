@@ -15,5 +15,5 @@ class SessionKeys
      *
      * Used during first login to force password change.
      */
-    public const REQUIRE_PASSWORD_CHANGE = 'require_password_change';
+    public const REQUIRE_PASSWORD_CHANGE = 'requirePasswordChange';
 }

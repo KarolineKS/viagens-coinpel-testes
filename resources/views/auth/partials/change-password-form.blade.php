@@ -5,7 +5,9 @@
                 <div>
                     <h5 class="modal-title change-password-modal__title" id="changePasswordModalLabel">Crie uma nova senha:</h5>
                 </div>
-                <button type="button" class="change-password-modal__close-btn" aria-label="Fechar"></button>
+                <button type="button" class="change-password-modal__close-btn" aria-label="Fechar">
+                    <x-icon name="x-modal" />
+                </button>
             </div>
             <div class="modal-body change-password-modal__body">
                 <p class="change-password-modal__description">No seu primeiro acesso é necessário trocar a senha provisória. É obrigatório que a senha tenha no mínimo 8 caracteres.</p>
