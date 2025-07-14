@@ -8,22 +8,22 @@
 @section('search-placeholder', 'Pesquisar motorista')
 
 @section('content')
-<div class="row">
+<div class="row drivers-listing g-3">
 
     @forelse ($drivers as $driver)
-    <div class="col-md-6 col-lg-4 mb-4">
+    <div class="col-md-6 col-lg-4">
         <div class="card driver-card">
             <div class="card-body p-4">
-                <div class="d-flex align-items-center justify-content-between mb-3">
+                <div class="d-flex align-items-center justify-content-between">
                     <div class="d-flex align-items-center">
 
                         @if($driver->profile_photo_url)
                         <img src="{{ $driver->profile_photo_url }}"
                             alt="{{ $driver->name }}"
-                            class="driver-avatar me-3">
+                            class="driver-avatar me-4">
 
                         @else
-                        <div class="driver-avatar driver-avatar-placeholder me-3">
+                        <div class="driver-avatar driver-avatar-placeholder me-4">
                             {{ $driver->initials }}
                         </div>
 
@@ -34,10 +34,10 @@
                         </div>
                     </div>
                     <div class="dropdown">
-                        <button class="btn btn-ghost" type="button" data-bs-toggle="dropdown">
-                            <x-icon name="three-dots-vertical" />
+                        <button class="btn btn-ghost p-0" type="button" data-bs-toggle="dropdown">
+                            <x-icon name="three-dots-vertical" class="driver-actions-icon" />
                         </button>
-                        <ul class="dropdown-menu">
+                        <ul class="dropdown-menu dropdown-menu-end">
                             <li>
                                 <a class="dropdown-item" href="{{ route('drivers.edit', $driver) }}">
                                     <x-icon name="edit" class="me-2" />
