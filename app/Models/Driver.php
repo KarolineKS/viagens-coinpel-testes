@@ -64,4 +64,30 @@ class Driver extends Model
     {
         return preg_replace('/(\d{2})(\d{4,5})(\d{4})/', '($1) $2-$3', $this->phone);
     }
+
+    /**
+     * Get the profile photo URL.
+     */
+    public function getProfilePhotoUrlAttribute(): ?string
+    {
+        return $this->profile_photo ? asset('storage/' . $this->profile_photo) : null;
+    }
+
+    /**
+     * Get driver initials for avatar placeholder.
+     */
+    public function getInitialsAttribute(): string
+    {
+        $names = explode(' ', $this->name);
+        $initials = '';
+
+        foreach ($names as $name) {
+            if (!empty($name)) {
+                $initials .= strtoupper($name[0]);
+                if (strlen($initials) >= 2) break;
+            }
+        }
+
+        return $initials ?: strtoupper(substr($this->name, 0, 1));
+    }
 }
