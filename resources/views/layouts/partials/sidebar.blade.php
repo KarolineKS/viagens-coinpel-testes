@@ -14,7 +14,7 @@
                 </a>
             </li>
             <li class="sidebar__item">
-                <a href="#" class="sidebar__link">
+                <a href="{{ route('drivers.index') }}" class="sidebar__link">
                     <x-icon name="motorista" class="sidebar__icon" />
                     <span>Motoristas</span>
                 </a>
