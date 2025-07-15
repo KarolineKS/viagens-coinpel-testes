@@ -4,10 +4,11 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Driver extends Model
 {
-    use HasFactory;
+    use HasFactory, SoftDeletes;
 
     protected $fillable = [
         'name',
@@ -29,8 +30,24 @@ class Driver extends Model
     ];
 
     protected $casts = [
-        'birth_date' => 'date',
-        'cnh_expiry_date' => 'date',
+        'birth_date' => 'date:Y-m-d',
+        'cnh_expiry_date' => 'date:Y-m-d',
+        'deleted_at' => 'datetime',
+    ];
+
+    /**
+     * The accessors to append to the model's array form.
+     *
+     * @var array
+     */
+    protected $appends = [
+        'full_address',
+        'city_state',
+        'formatted_cpf',
+        'formatted_phone',
+        'profile_photo_url',
+        'formatted_birth_date',
+        'formatted_cnh_expiry_date',
     ];
 
     /**
@@ -38,7 +55,15 @@ class Driver extends Model
      */
     public function getFullAddressAttribute(): string
     {
-        return "{$this->street}, {$this->number} - {$this->city}/{$this->state}";
+        return "{$this->street}, {$this->number}";
+    }
+
+    /**
+     * Get the driver's city and state.
+     */
+    public function getCityStateAttribute(): string
+    {
+        return "{$this->city}/{$this->state}";
     }
 
     /**
@@ -54,6 +79,9 @@ class Driver extends Model
      */
     public function getFormattedCpfAttribute(): string
     {
+        if (empty($this->cpf)) {
+            return '';
+        }
         return preg_replace('/(\d{3})(\d{3})(\d{3})(\d{2})/', '$1.$2.$3-$4', $this->cpf);
     }
 
@@ -62,7 +90,26 @@ class Driver extends Model
      */
     public function getFormattedPhoneAttribute(): string
     {
+        if (empty($this->phone)) {
+            return '';
+        }
         return preg_replace('/(\d{2})(\d{4,5})(\d{4})/', '($1) $2-$3', $this->phone);
+    }
+
+    /**
+     * Get formatted birth date.
+     */
+    public function getFormattedBirthDateAttribute(): ?string
+    {
+        return $this->birth_date ? $this->birth_date->format('d/m/Y') : null;
+    }
+
+    /**
+     * Get formatted CNH expiry date.
+     */
+    public function getFormattedCnhExpiryDateAttribute(): ?string
+    {
+        return $this->cnh_expiry_date ? $this->cnh_expiry_date->format('d/m/Y') : null;
     }
 
     /**
