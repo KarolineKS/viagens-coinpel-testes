@@ -4,6 +4,9 @@ namespace Database\Seeders;
 
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use Database\Seeders\TripSeeder;
+use Database\Seeders\VehicleSeeder;
+use Database\Seeders\DriverSeeder;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 
@@ -28,6 +31,8 @@ class DatabaseSeeder extends Seeder
 
         $this->call([
             DriverSeeder::class,
+            VehicleSeeder::class,
+            TripSeeder::class,
         ]);
     }
 }

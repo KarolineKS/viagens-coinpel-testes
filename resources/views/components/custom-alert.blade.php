@@ -1,5 +1,6 @@
 @props([
 'type' => 'success',
+'title' => null,
 'message',
 'id' => 'sessionAlertModal',
 'showCancel' => false,
@@ -18,7 +19,7 @@ $config = [
 'success' => ['title' => 'Sucesso!', 'icon' => 'check-circle', 'buttonClass' => 'btn-success'],
 ];
 
-$title = $config[$type]['title'] ?? '';
+$alertTitle = $title ?? ($config[$type]['title'] ?? '');
 $iconName = $config[$type]['icon'] ?? '';
 $buttonClass = $config[$type]['buttonClass'] ?? 'btn-primary';
 
@@ -33,7 +34,7 @@ $buttonClass = $config[$type]['buttonClass'] ?? 'btn-primary';
                         <x-icon :name="$iconName" />
                     </div>
                 </div>
-                <h2 class="custom-alert-title" id="{{ $id }}Title">{{ $title }}</h2>
+                <h2 class="custom-alert-title" id="{{ $id }}Title">{{ $alertTitle }}</h2>
                 <p class="custom-alert-message" id="{{ $id }}Message">{!! $message !!}</p>
 
                 @if($showCancel)

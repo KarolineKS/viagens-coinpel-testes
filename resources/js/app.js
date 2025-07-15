@@ -6,6 +6,7 @@ import "./users.js";
 import.meta.glob(["../images/**", "../fonts/**"]);
 
 import "./driver-form.js";
+import "./trip-form";
 
 // Toast functionality
 document.addEventListener("DOMContentLoaded", function () {

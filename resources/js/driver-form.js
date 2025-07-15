@@ -479,6 +479,18 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }
 
-    // Inicializar o handler
-    new DriverFormHandler();
+    // Inicializar o manipulador do formulário
+    if (document.getElementById("driverForm")) {
+        new DriverFormHandler();
+    }
+
+    // Lógica para abrir o offcanvas automaticamente
+    const offcanvasElement = document.getElementById("driverFormOffcanvas");
+    if (offcanvasElement) {
+        const urlParams = new URLSearchParams(window.location.search);
+        if (urlParams.has("edit") || urlParams.has("create")) {
+            const offcanvas = new bootstrap.Offcanvas(offcanvasElement);
+            offcanvas.show();
+        }
+    }
 });
