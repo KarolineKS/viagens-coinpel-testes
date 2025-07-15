@@ -87,15 +87,6 @@
 
 @include('drivers.partials.form-offcanvas', ['autoOpen' => isset($editDriver), 'editDriver' => $editDriver ?? null])
 
-@if(isset($editDriver) || request()->has('create'))
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const offcanvas = new bootstrap.Offcanvas(document.getElementById('driverFormOffcanvas'));
-        offcanvas.show();
-    });
-</script>
-@endif
-
 @foreach ($drivers as $driver)
 <x-custom-alert
     type="warning"
