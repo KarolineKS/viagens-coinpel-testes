@@ -3,6 +3,7 @@
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\VehicleController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\DriverController;
 use App\Http\Controllers\Auth\ChangePasswordController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
@@ -40,4 +41,6 @@ Route::middleware(['auth', 'user.not.blocked', 'password.changed'])->group(funct
 
     Route::resource('users', UserController::class);
     Route::patch('users/{user}/toggle-block', [UserController::class, 'toggleBlock'])->name('users.toggle-block');
+
+    Route::resource('drivers', DriverController::class);
 });

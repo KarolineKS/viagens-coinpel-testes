@@ -31,6 +31,9 @@
 
         @if (session('error'))
         <x-toast type="danger" :message="session('error')" />
+
+        @elseif ($errors->any())
+        <x-toast type="danger" message="Erro no formulário! Verifique os campos destacados." />
         @endif
 
         @if (session('warning'))

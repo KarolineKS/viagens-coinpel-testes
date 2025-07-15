@@ -97,6 +97,10 @@
         line-height: normal;
         padding: 10px 20px;
     }
+
+    &__row > div {
+        padding: 0;
+    }
 }
 
 .btn-delete {

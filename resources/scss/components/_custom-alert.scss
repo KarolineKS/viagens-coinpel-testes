@@ -1,5 +1,10 @@
 @import "../variables";
 
+// Garantir que o modal de erro do formulário apareça por cima do offcanvas
+#formErrorAlert.modal {
+    z-index: 9999 !important;
+}
+
 .modal-content.custom-alert-content {
     border-radius: 16px;
     border: none;
