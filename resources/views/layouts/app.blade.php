@@ -40,6 +40,10 @@
         @if (session('info'))
         <x-toast type="info" :message="session('info')" />
         @endif
+
+        @if ($errors->any())
+        <x-toast type="danger" message="Erro no formulário! Verifique os campos destacados." />
+        @endif
     </div>
 
     @if (session('alert_error'))
