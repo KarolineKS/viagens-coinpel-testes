@@ -19,7 +19,7 @@ class TripController extends Controller
      */
     public function indexApi()
     {
-        $trips = Trip::select('id', 'name', 'status', 'departure_date')->get();
+        $trips = Trip::with(['driver', 'vehicle'])->get();
         return response()->json($trips);
     }
 
