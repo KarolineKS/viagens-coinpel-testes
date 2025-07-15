@@ -1,5 +1,6 @@
 <header class="header d-flex justify-content-between align-items-center">
 
+    @section('header-actions')
     <div class="d-flex align-items-center header__actions">
         @php
         $actionType = View::getSection('action-type', 'link');
@@ -8,7 +9,8 @@
         @endphp
 
         @if ($actionType === 'modal' || $actionType === 'offcanvas')
-        <button class="btn btn-primary d-flex align-items-center gap-2 header__add-btn" data-bs-toggle="{{ $actionType }}" data-bs-target="{{ $actionTarget }}">
+        <button class="btn btn-primary d-flex align-items-center gap-2 header__add-btn"
+            data-bs-toggle="{{ $actionType }}" data-bs-target="{{ $actionTarget }}">
             <x-icon name="plus" />
             <span>Adicionar {{ $actionEntity }}</span>
         </button>
@@ -22,12 +24,12 @@
         <button class="btn header__filter-btn">
             Filtrar
         </button>
-
-
     </div>
+    @show
 
     <div class="header__user-menu d-flex align-items-center">
 
+        @unless(View::hasSection('hide_header_search'))
         <form action="@yield('search-action', '#')" method="GET" class="header__search">
             <div class="input-group">
                 <input type="text" class="form-control" name="search" placeholder="@yield('search-placeholder', 'Pesquisar...')">
@@ -42,6 +44,7 @@
                 <x-icon name="bell" />
             </button>
         </div>
+        @endunless
 
         <div class="dropdown">
             <button class="header__user-info d-flex align-items-center" type="button" id="userMenuButton" data-bs-toggle="dropdown" aria-expanded="false" data-bs-offset="0,10">

@@ -32,7 +32,7 @@
                 </a>
             </li>
             <li class="sidebar__item">
-                <a href="#" class="sidebar__link">
+                <a href="{{ route('trips.index') }}" class="sidebar__link">
                     <x-icon name="viagens" class="sidebar__icon" />
                     <span>Viagens</span>
                 </a>
