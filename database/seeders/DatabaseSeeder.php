@@ -10,7 +10,9 @@ use Illuminate\Support\Facades\Hash;
 class DatabaseSeeder extends Seeder
 {
     /**
-     * Seed the application's database.
+     * Seeds the application's database with initial data.
+     *
+     * Creates a test user with predefined attributes and executes the DriverSeeder to populate related data.
      */
     public function run(): void
     {

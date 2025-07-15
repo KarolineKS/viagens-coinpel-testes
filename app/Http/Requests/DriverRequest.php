@@ -28,7 +28,9 @@ use Illuminate\Validation\Rule;
 class DriverRequest extends FormRequest
 {
     /**
-     * Determine if the user is authorized to make this request.
+     * Allows all users to make this driver-related request.
+     *
+     * @return bool Always returns true.
      */
     public function authorize(): bool
     {
@@ -36,9 +38,11 @@ class DriverRequest extends FormRequest
     }
 
     /**
-     * Get the validation rules that apply to the request.
+     * Returns the validation rules for driver-related request data.
      *
-     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
+     * Enforces constraints on personal, identification, address, contact, and driver's license fields, including uniqueness, format, length, and date requirements. If updating an existing driver, uniqueness checks ignore the current driver's record.
+     *
+     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string> The array of validation rules for each request field.
      */
     public function rules(): array
     {
@@ -100,9 +104,11 @@ class DriverRequest extends FormRequest
     }
 
     /**
-     * Get the custom messages for validator errors.
+     * Returns custom validation error messages for driver request fields.
      *
-     * @return array
+     * Provides localized (Portuguese) messages for each validation rule failure, covering all driver attributes including personal information, identification numbers, address, contact details, driver's license data, and profile photo requirements.
+     *
+     * @return array Associative array mapping validation rule keys to custom error messages.
      */
     public function messages(): array
     {

@@ -11,9 +11,11 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 class DriverFactory extends Factory
 {
     /**
-     * Define the model's default state.
+     * Generates a default set of fake attributes for a Driver model using Brazilian locale data.
      *
-     * @return array<string, mixed>
+     * Returns an associative array with realistic values for personal, identification, address, contact, and driver license fields, ensuring uniqueness where appropriate.
+     *
+     * @return array<string, mixed> An array of attributes representing a Driver model's default state.
      */
     public function definition(): array
     {

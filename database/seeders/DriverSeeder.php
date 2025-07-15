@@ -10,7 +10,9 @@ use Faker\Factory as Faker;
 class DriverSeeder extends Seeder
 {
     /**
-     * Run the database seeder.
+     * Seeds the database with 10 driver records using randomized Brazilian data.
+     *
+     * Each driver includes personal, contact, and license information. The fourth driver's license expiry date is set to 6 months in the past; others receive a future expiry date between 2025 and 2026.
      */
     public function run(): void
     {

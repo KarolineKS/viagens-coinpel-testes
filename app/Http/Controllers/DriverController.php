@@ -17,7 +17,11 @@ use Illuminate\Http\UploadedFile;
 class DriverController extends Controller
 {
     /**
-     * Display a listing of the drivers.
+     * Retrieves a paginated list of drivers with optional search filtering and modal state.
+     *
+     * Applies search filters on name, email, registration number, or CNH number if provided in the request. Determines whether to auto-open create or edit modals based on request parameters and passes the relevant driver to edit if applicable.
+     *
+     * @return \Illuminate\View\View
      */
     public function index(Request $request)
     {
@@ -50,7 +54,9 @@ class DriverController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Redirects to the drivers index route with a parameter to open the create modal.
+     *
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function create()
     {
@@ -58,7 +64,11 @@ class DriverController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Creates a new driver record with validated data and optional profile photo upload.
+     *
+     * If a profile photo is provided, it is validated, processed, and stored. On upload failure, redirects back with an error message. On success, redirects to the driver index with a success message.
+     *
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function store(DriverRequest $request)
     {
@@ -101,7 +111,10 @@ class DriverController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Redirects to the driver index route with a parameter to open the edit modal for the specified driver.
+     *
+     * @param Driver $driver The driver to edit.
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function edit(Driver $driver)
     {
@@ -109,7 +122,13 @@ class DriverController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * Updates the specified driver with validated data and handles profile photo replacement if a new photo is uploaded.
+     *
+     * If a new profile photo is provided, processes and stores the image, deletes the old photo, and updates the driver's photo path. Redirects back with an error message if the upload fails. On success, redirects to the drivers index with a success message.
+     *
+     * @param DriverRequest $request The validated request containing driver data and optional profile photo.
+     * @param Driver $driver The driver instance to update.
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function update(DriverRequest $request, Driver $driver)
     {
@@ -137,7 +156,10 @@ class DriverController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Deletes the specified driver and removes their profile photo from storage if it exists.
+     *
+     * @param Driver $driver The driver to be deleted.
+     * @return \Illuminate\Http\RedirectResponse Redirects to the drivers index with a success message.
      */
     public function destroy(Driver $driver)
     {
@@ -151,7 +173,12 @@ class DriverController extends Controller
     }
 
     /**
-     * Handle photo upload with optimization, compression and unique naming.
+     * Processes and uploads a driver profile photo with validation, resizing, and WebP conversion.
+     *
+     * Validates the uploaded file's size and MIME type, resizes the image to a maximum of 800x800 pixels while maintaining aspect ratio, converts it to WebP format with 85% quality, and stores it with a unique filename in the public storage. Returns the storage path on success or null if validation fails or an error occurs.
+     *
+     * @param UploadedFile $file The uploaded image file to process.
+     * @return string|null The storage path of the processed image, or null on failure.
      */
     private function handlePhotoUpload(UploadedFile $file): ?string
     {
@@ -210,7 +237,9 @@ class DriverController extends Controller
     }
 
     /**
-     * Delete old profile photo if exists.
+     * Deletes the specified old profile photo from public storage if it exists.
+     *
+     * Does nothing if the photo path is null or the file does not exist.
      */
     private function deleteOldPhoto(?string $photoPath): void
     {

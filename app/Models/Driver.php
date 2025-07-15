@@ -51,15 +51,19 @@ class Driver extends Model
     ];
 
     /**
-     * Get the driver's full address.
+     * Returns the driver's full address as a string combining street and number.
+     *
+     * @return string The full address in the format "street, number".
      */
     public function getFullAddressAttribute(): string
     {
         return "{$this->street}, {$this->number}";
     }
 
-    /**
-     * Get the driver's city and state.
+    /****
+     * Returns the driver's city and state as a single string in the format "city/state".
+     *
+     * @return string The concatenated city and state.
      */
     public function getCityStateAttribute(): string
     {
@@ -67,7 +71,9 @@ class Driver extends Model
     }
 
     /**
-     * Check if CNH is expired.
+     * Determines whether the driver's CNH (driver's license) has expired.
+     *
+     * @return bool True if the CNH expiry date is set and in the past; otherwise, false.
      */
     public function isCnhExpired(): bool
     {
@@ -75,7 +81,11 @@ class Driver extends Model
     }
 
     /**
-     * Get formatted CPF.
+     * Returns the CPF number formatted as xxx.xxx.xxx-xx.
+     *
+     * If the CPF is empty, returns an empty string.
+     *
+     * @return string The formatted CPF or an empty string if not set.
      */
     public function getFormattedCpfAttribute(): string
     {
@@ -86,7 +96,10 @@ class Driver extends Model
     }
 
     /**
-     * Get formatted phone.
+     * Returns the phone number formatted as (xx) xxxx-xxxx or (xx) xxxxx-xxxx.
+     *
+     * If the phone number is not set, returns an empty string.
+     * @return string The formatted phone number or an empty string if not available.
      */
     public function getFormattedPhoneAttribute(): string
     {
@@ -97,7 +110,9 @@ class Driver extends Model
     }
 
     /**
-     * Get formatted birth date.
+     * Returns the driver's birth date formatted as `d/m/Y`, or null if not set.
+     *
+     * @return string|null The formatted birth date, or null if unavailable.
      */
     public function getFormattedBirthDateAttribute(): ?string
     {
@@ -105,7 +120,9 @@ class Driver extends Model
     }
 
     /**
-     * Get formatted CNH expiry date.
+     * Returns the CNH expiry date formatted as `d/m/Y`, or null if not set.
+     *
+     * @return string|null The formatted CNH expiry date, or null if unavailable.
      */
     public function getFormattedCnhExpiryDateAttribute(): ?string
     {
@@ -113,7 +130,9 @@ class Driver extends Model
     }
 
     /**
-     * Get the profile photo URL.
+     * Returns the full URL to the driver's profile photo if set, or null otherwise.
+     *
+     * @return string|null The URL of the profile photo, or null if no photo is available.
      */
     public function getProfilePhotoUrlAttribute(): ?string
     {
@@ -121,7 +140,11 @@ class Driver extends Model
     }
 
     /**
-     * Get driver initials for avatar placeholder.
+     * Returns up to two uppercase initials from the driver's name for use as an avatar placeholder.
+     *
+     * If the name contains multiple words, the initials are taken from the first character of each of the first two words. If the name is a single word, the first character is used.
+     *
+     * @return string The driver's initials in uppercase.
      */
     public function getInitialsAttribute(): string
     {
