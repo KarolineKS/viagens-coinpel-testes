@@ -71,7 +71,15 @@ class Driver extends Model
      */
     public function isCnhExpired(): bool
     {
-        return $this->cnh_expiry_date->isPast();
+        return $this->cnh_expiry_date ? $this->cnh_expiry_date->isPast() : false;
+    }
+
+    /**
+     * Scope a query to only include active drivers.
+     */
+    public function scopeActive($query)
+    {
+        return $query->whereNull('deleted_at');
     }
 
     /**

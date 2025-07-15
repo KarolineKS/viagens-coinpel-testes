@@ -12,6 +12,7 @@ use Illuminate\Support\Str;
 use Intervention\Image\ImageManager;
 use Intervention\Image\Drivers\Gd\Driver as GdDriver;
 use Illuminate\View\View;
+use Illuminate\Http\UploadedFile;
 
 class DriverController extends Controller
 {
@@ -20,7 +21,8 @@ class DriverController extends Controller
      */
     public function index(Request $request)
     {
-        $query = Driver::query();
+        // Usar apenas drivers ativos (não deletados)
+        $query = Driver::active();
 
         // Filtro de busca
         if ($request->filled('search')) {
@@ -35,11 +37,10 @@ class DriverController extends Controller
 
         $drivers = $query->latest()->paginate(10);
 
-        // Auto-abertura do offcanvas
+
         $autoOpen = $request->has('create');
         $editDriver = null;
 
-        // Edição de motorista
         if ($request->has('edit')) {
             $editDriver = Driver::find($request->edit);
             $autoOpen = true;
@@ -79,9 +80,18 @@ class DriverController extends Controller
             'cnh_expiry_date' => $request->cnh_expiry_date,
         ];
 
-        // Upload da foto de perfil com nome único e otimização
+        // Upload da foto de perfil com compressão automática e validação
         if ($request->hasFile('profile_photo')) {
-            $data['profile_photo'] = $this->handlePhotoUpload($request->file('profile_photo'));
+            $photoPath = $this->handlePhotoUpload($request->file('profile_photo'));
+
+            if ($photoPath) {
+                $data['profile_photo'] = $photoPath;
+            } else {
+                // If upload failed, return with error
+                return Redirect::back()
+                    ->withInput()
+                    ->with('error', 'Erro ao fazer upload da foto. Verifique o tamanho e formato do arquivo.');
+            }
         }
 
         Driver::create($data);
@@ -95,7 +105,7 @@ class DriverController extends Controller
      */
     public function show(Driver $driver)
     {
-        return response()->json($driver);
+        return redirect()->route('drivers.index', ['edit' => $driver->id]);
     }
 
     /**
@@ -111,31 +121,21 @@ class DriverController extends Controller
      */
     public function update(DriverRequest $request, Driver $driver)
     {
-        $data = [
-            'name' => $request->name,
-            'birth_date' => $request->birth_date,
-            'registration_number' => $request->registration_number,
-            'cpf' => $request->cpf,
-            'rg' => $request->rg,
-            'zip_code' => $request->zip_code,
-            'street' => $request->street,
-            'number' => $request->number,
-            'city' => $request->city,
-            'state' => $request->state,
-            'email' => $request->email,
-            'phone' => $request->phone,
-            'cnh_category' => $request->cnh_category,
-            'cnh_number' => $request->cnh_number,
-            'cnh_expiry_date' => $request->cnh_expiry_date,
-        ];
-
+        $data = $request->except(['_token', '_method', 'profile_photo']);
 
         if ($request->hasFile('profile_photo')) {
+            $newPhotoPath = $this->handlePhotoUpload($request->file('profile_photo'));
 
-            if ($driver->profile_photo) {
-                Storage::disk('public')->delete($driver->profile_photo);
+            if ($newPhotoPath) {
+
+                $this->deleteOldPhoto($driver->profile_photo);
+                $data['profile_photo'] = $newPhotoPath;
+            } else {
+
+                return Redirect::back()
+                    ->withInput()
+                    ->with('error', 'Erro ao fazer upload da foto. Verifique o tamanho e formato do arquivo.');
             }
-            $data['profile_photo'] = $this->handlePhotoUpload($request->file('profile_photo'));
         }
 
         $driver->update($data);
@@ -149,9 +149,8 @@ class DriverController extends Controller
      */
     public function destroy(Driver $driver)
     {
-        if ($driver->profile_photo) {
-            Storage::disk('public')->delete($driver->profile_photo);
-        }
+        // Delete profile photo before deleting driver
+        $this->deleteOldPhoto($driver->profile_photo);
 
         $driver->delete();
 
@@ -160,33 +159,85 @@ class DriverController extends Controller
     }
 
     /**
-     * Handle photo upload with optimization and unique naming.
+     * Handle photo upload with optimization, compression and unique naming.
      */
-    private function handlePhotoUpload($file)
+    private function handlePhotoUpload(UploadedFile $file): ?string
     {
         try {
-            $fileName = Str::uuid() . '.' . $file->getClientOriginalExtension();
-            $path = 'drivers/photos/' . $fileName;
+            // Validate file size (max 5MB)
+            $maxSizeInBytes = 5 * 1024 * 1024; // 5MB
+            if ($file->getSize() > $maxSizeInBytes) {
+                Log::warning('Arquivo muito grande para upload: ' . $file->getSize() . ' bytes');
+                return null;
+            }
 
+            // Validate file type
+            $allowedMimes = ['image/jpeg', 'image/png', 'image/jpg', 'image/gif', 'image/webp'];
+            if (!in_array($file->getMimeType(), $allowedMimes)) {
+                Log::warning('Tipo de arquivo não permitido: ' . $file->getMimeType());
+                return null;
+            }
 
-            Storage::disk('public')->makeDirectory('drivers/photos');
+            // Generate unique filename
+            $fileName = Str::uuid() . '.webp'; // Always save as WebP for better compression
+            $directory = 'drivers/photos';
+            $fullPath = $directory . '/' . $fileName;
 
+            // Create directory if it doesn't exist
+            if (!Storage::disk('public')->exists($directory)) {
+                Storage::disk('public')->makeDirectory($directory);
+            }
 
-            $fullPath = Storage::disk('public')->putFileAs('drivers/photos', $file, $fileName);
-
-            // Otimiza a imagem (redimensiona para 400x400 mantendo proporção)
-            $imagePath = storage_path('app/public/' . $fullPath);
-
+            // Initialize Image Manager
             $manager = new ImageManager(new GdDriver());
-            $image = $manager->read($imagePath);
-            $image->cover(400, 400);
-            $image->save($imagePath, 85); // 85% de qualidade
+
+            // Read and process the image
+            $image = $manager->read($file->getPathname());
+
+            // Resize image to maximum 800x800 while maintaining aspect ratio
+            $image->scaleDown(800, 800);
+
+            // Convert to WebP with 85% quality for optimal compression
+            $processedImage = $image->toWebp(85);
+
+            // Save the processed image
+            Storage::disk('public')->put($fullPath, $processedImage);
+
+            Log::info('Foto carregada com sucesso: ' . $fullPath);
 
             return $fullPath;
         } catch (\Exception $e) {
-            Log::error('Erro no upload da foto: ' . $e->getMessage());
+            Log::error('Erro no upload da foto: ' . $e->getMessage(), [
+                'file_name' => $file->getClientOriginalName(),
+                'file_size' => $file->getSize(),
+                'file_type' => $file->getMimeType()
+            ]);
 
             return null;
+        }
+    }
+
+    /**
+     * Get optimized image dimensions while maintaining aspect ratio.
+     */
+    private function getOptimizedDimensions(int $originalWidth, int $originalHeight, int $maxWidth = 800, int $maxHeight = 800): array
+    {
+        $ratio = min($maxWidth / $originalWidth, $maxHeight / $originalHeight);
+
+        return [
+            'width' => (int) ($originalWidth * $ratio),
+            'height' => (int) ($originalHeight * $ratio)
+        ];
+    }
+
+    /**
+     * Delete old profile photo if exists.
+     */
+    private function deleteOldPhoto(?string $photoPath): void
+    {
+        if ($photoPath && Storage::disk('public')->exists($photoPath)) {
+            Storage::disk('public')->delete($photoPath);
+            Log::info('Foto antiga removida: ' . $photoPath);
         }
     }
 }
