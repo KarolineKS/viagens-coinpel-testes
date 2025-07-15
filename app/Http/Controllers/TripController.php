@@ -13,6 +13,17 @@ use Illuminate\View\View;
 class TripController extends Controller
 {
     /**
+     * Display a listing of the resource for the API.
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function indexApi()
+    {
+        $trips = Trip::select('id', 'name', 'status', 'departure_date')->get();
+        return response()->json($trips);
+    }
+
+    /**
      * Display a listing of the trips.
      */
     public function index(Request $request): View
