@@ -32,7 +32,7 @@
         @if (session('error'))
         <x-toast type="danger" :message="session('error')" />
 
-        @elseif ($errors->any())
+        @elseif ($errors->any() && !session('show_validation_error_alert'))
         <x-toast type="danger" message="Erro no formulário! Verifique os campos destacados." />
         @endif
 

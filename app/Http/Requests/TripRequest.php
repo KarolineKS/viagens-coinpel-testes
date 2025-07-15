@@ -7,6 +7,9 @@ use Illuminate\Validation\Rule;
 use App\Rules\DriverIsAvailable;
 use App\Rules\VehicleIsAvailable;
 use App\Constants\Trip;
+use App\Rules\CnhIsNotExpired;
+use Illuminate\Contracts\Validation\Validator;
+use Illuminate\Http\Exceptions\HttpResponseException;
 
 class TripRequest extends FormRequest
 {
@@ -61,11 +64,12 @@ class TripRequest extends FormRequest
             'vehicle_id' => [
                 'required',
                 'exists:vehicles,id',
-                new VehicleIsAvailable($this->departure_date, $tripId)
+                new VehicleIsAvailable($this->departure_date, $this->departure_time, $tripId)
             ],
             'driver_id' => [
                 'required',
                 'exists:drivers,id',
+                new CnhIsNotExpired,
                 new DriverIsAvailable($this->departure_date, $this->departure_time, $tripId)
             ],
             'status' => [Rule::in(Trip::STATUSES)],
@@ -80,6 +84,37 @@ class TripRequest extends FormRequest
         }
 
         return $rules;
+    }
+
+    /**
+     * Handle a failed validation attempt.
+     *
+     * @param  \Illuminate\Contracts\Validation\Validator  $validator
+     * @return void
+     *
+     * @throws \Illuminate\Validation\ValidationException
+     */
+    protected function failedValidation(Validator $validator)
+    {
+        $errors = $validator->errors();
+        $errorCount = $errors->count();
+        $errorTitle = $errorCount > 1 ? "Foram encontrados {$errorCount} erros" : 'Ocorreu um erro';
+
+        $errorMessage = '<ul class="text-start">';
+        foreach ($errors->all() as $error) {
+            $errorMessage .= "<li>{$error}</li>";
+        }
+        $errorMessage .= '</ul>';
+
+        $response = redirect()
+            ->back()
+            ->withInput($this->except($this->dontFlash))
+            ->withErrors($errors)
+            ->with('show_validation_error_alert', true)
+            ->with('validation_error_title', $errorTitle)
+            ->with('validation_error_message', $errorMessage);
+
+        throw new HttpResponseException($response);
     }
 
     /**
