@@ -34,5 +34,8 @@ $categories = [
 </select>
 
 @error($name)
-<div class="invalid-feedback">{{ $message }}</div>
+<span class="text-danger small d-block mt-1">
+    <x-icon name="exclamation-triangle" class="me-1" style="font-size: 12px;" />
+    {{ $message }}
+</span>
 @enderror

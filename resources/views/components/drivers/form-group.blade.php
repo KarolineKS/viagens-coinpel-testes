@@ -54,6 +54,8 @@
     @endif
 
     @error($name)
-    <div class="invalid-feedback">{{ $message }}</div>
+    <span class="text-danger small d-block mt-1">
+        {{ $message }}
+    </span>
     @enderror
 </div>
