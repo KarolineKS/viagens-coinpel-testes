@@ -75,14 +75,6 @@ class Driver extends Model
     }
 
     /**
-     * Scope a query to only include active drivers.
-     */
-    public function scopeActive($query)
-    {
-        return $query->whereNull('deleted_at');
-    }
-
-    /**
      * Get formatted CPF.
      */
     public function getFormattedCpfAttribute(): string

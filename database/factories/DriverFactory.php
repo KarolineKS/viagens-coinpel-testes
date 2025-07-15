@@ -17,22 +17,25 @@ class DriverFactory extends Factory
      */
     public function definition(): array
     {
+        // Use Brazilian faker locale for valid Brazilian documents
+        $faker = \Faker\Factory::create('pt_BR');
+
         return [
-            'name' => $this->faker->name(),
-            'birth_date' => $this->faker->dateTimeBetween('-65 years', '-18 years')->format('Y-m-d'),
-            'registration_number' => $this->faker->unique()->numerify('######'),
-            'cpf' => $this->faker->unique()->numerify('###########'),
-            'rg' => $this->faker->unique()->numerify('##########'),
-            'zip_code' => $this->faker->numerify('#####-###'),
-            'street' => $this->faker->streetName(),
-            'number' => $this->faker->buildingNumber(),
-            'city' => $this->faker->city(),
-            'state' => $this->faker->stateAbbr(),
-            'email' => $this->faker->unique()->safeEmail(),
-            'phone' => $this->faker->numerify('(##) #####-####'),
-            'cnh_category' => $this->faker->randomElement(['A', 'B', 'C', 'D', 'E', 'AB', 'AC', 'AD', 'AE']),
-            'cnh_number' => $this->faker->unique()->numerify('##########'),
-            'cnh_expiry_date' => $this->faker->dateTimeBetween('+1 month', '+5 years')->format('Y-m-d'),
+            'name' => $faker->name(),
+            'birth_date' => $faker->dateTimeBetween('-65 years', '-18 years')->format('Y-m-d'),
+            'registration_number' => $faker->unique()->numerify('######'),
+            'cpf' => $faker->unique()->cpf(false),
+            'rg' => $faker->unique()->rg(false),
+            'zip_code' => $faker->postcode(),
+            'street' => $faker->streetName(),
+            'number' => $faker->buildingNumber(),
+            'city' => $faker->city(),
+            'state' => $faker->stateAbbr(),
+            'email' => $faker->unique()->safeEmail(),
+            'phone' => $faker->cellphone(false),
+            'cnh_category' => $faker->randomElement(['A', 'B', 'C', 'D', 'E', 'AB', 'AC', 'AD', 'AE']),
+            'cnh_number' => $faker->unique()->numerify('##########'),
+            'cnh_expiry_date' => $faker->dateTimeBetween('+1 month', '+5 years')->format('Y-m-d'),
             'profile_photo' => null,
         ];
     }

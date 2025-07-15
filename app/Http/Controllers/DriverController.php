@@ -21,8 +21,8 @@ class DriverController extends Controller
      */
     public function index(Request $request)
     {
-        // Usar apenas drivers ativos (não deletados)
-        $query = Driver::active();
+        // SoftDeletes trait automaticamente exclui drivers deletados
+        $query = Driver::query();
 
         // Filtro de busca
         if ($request->filled('search')) {
@@ -42,7 +42,7 @@ class DriverController extends Controller
         $editDriver = null;
 
         if ($request->has('edit')) {
-            $editDriver = Driver::find($request->edit);
+            $editDriver = Driver::findOrFail($request->edit);
             $autoOpen = true;
         }
 
@@ -98,14 +98,6 @@ class DriverController extends Controller
 
         return Redirect::route('drivers.index')
             ->with('success', 'Motorista cadastrado com sucesso!');
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(Driver $driver)
-    {
-        return redirect()->route('drivers.index', ['edit' => $driver->id]);
     }
 
     /**
@@ -215,19 +207,6 @@ class DriverController extends Controller
 
             return null;
         }
-    }
-
-    /**
-     * Get optimized image dimensions while maintaining aspect ratio.
-     */
-    private function getOptimizedDimensions(int $originalWidth, int $originalHeight, int $maxWidth = 800, int $maxHeight = 800): array
-    {
-        $ratio = min($maxWidth / $originalWidth, $maxHeight / $originalHeight);
-
-        return [
-            'width' => (int) ($originalWidth * $ratio),
-            'height' => (int) ($originalHeight * $ratio)
-        ];
     }
 
     /**

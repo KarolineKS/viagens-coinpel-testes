@@ -295,17 +295,17 @@ document.addEventListener("DOMContentLoaded", function () {
                     const file = event.target.files[0];
 
                     if (file) {
-                        // Validar tamanho (5MB)
+                        // Validar tamanho (5MB) - mostra erro mas permite submit para validação do backend
                         const maxSize = 5 * 1024 * 1024;
                         if (file.size > maxSize) {
-                            alert(
+                            this.showFieldError(
+                                profilePhotoInput,
                                 "A imagem é muito grande. O tamanho máximo é 5MB."
                             );
-                            profilePhotoInput.value = "";
-                            return;
+                            // Não retornamos aqui - deixamos o backend validar também
                         }
 
-                        // Validar tipo
+                        // Validar tipo - mostra erro mas permite submit para validação do backend
                         const allowedTypes = [
                             "image/jpeg",
                             "image/png",
@@ -314,11 +314,11 @@ document.addEventListener("DOMContentLoaded", function () {
                             "image/webp",
                         ];
                         if (!allowedTypes.includes(file.type)) {
-                            alert(
+                            this.showFieldError(
+                                profilePhotoInput,
                                 "Tipo de arquivo não permitido. Use apenas: JPEG, PNG, JPG, GIF ou WebP."
                             );
-                            profilePhotoInput.value = "";
-                            return;
+                            // Não retornamos aqui - deixamos o backend validar também
                         }
 
                         const fileSize = (file.size / 1024 / 1024).toFixed(2);
@@ -327,21 +327,21 @@ document.addEventListener("DOMContentLoaded", function () {
                         reader.onload = (e) => {
                             const img = new Image();
                             img.onload = () => {
-                                // Validar dimensões
+                                // Validar dimensões - mostra erro mas permite submit para validação do backend
                                 if (img.width < 100 || img.height < 100) {
-                                    alert(
+                                    this.showFieldError(
+                                        profilePhotoInput,
                                         "A imagem deve ter pelo menos 100x100 pixels."
                                     );
-                                    profilePhotoInput.value = "";
-                                    return;
+                                    // Não retornamos aqui - deixamos o backend validar também
                                 }
 
                                 if (img.width > 4000 || img.height > 4000) {
-                                    alert(
+                                    this.showFieldError(
+                                        profilePhotoInput,
                                         "A imagem não pode ter mais de 4000x4000 pixels."
                                     );
-                                    profilePhotoInput.value = "";
-                                    return;
+                                    // Não retornamos aqui - deixamos o backend validar também
                                 }
 
                                 // Mostrar preview

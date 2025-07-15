@@ -40,7 +40,7 @@
         class="form-group__input @error($name) is-invalid @enderror {{ $class }}"
         id="{{ $name }}"
         name="{{ $name }}"
-        {{ $accept ? "accept={$accept}" : '' }}
+        {{ $accept ? "accept=\"{$accept}\"" : '' }}
         {{ $required ? 'required' : '' }}>
 
     @else

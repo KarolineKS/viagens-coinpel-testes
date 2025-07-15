@@ -13,7 +13,11 @@
     @forelse ($drivers as $driver)
     <div class="col-md-6 col-lg-4">
         <div class="card driver-card">
-            <div class="card-body p-4">
+            <div class="card-body p-4 position-relative">
+                @if($driver->isCnhExpired())
+                <span class="badge bg-danger position-absolute cnh-expired-badge">CNH Vencida</span>
+                @endif
+
                 <div class="d-flex align-items-center justify-content-between">
                     <div class="d-flex align-items-center">
 
@@ -31,12 +35,6 @@
                         <div class="driver-info">
                             <h6 class="driver-name">{{ $driver->name }}</h6>
                             <p class="driver-email mb-1">{{ $driver->email }}</p>
-                            <div class="d-flex align-items-center justify-content-between">
-
-                                @if($driver->isCnhExpired())
-                                <span class="badge bg-danger">CNH Vencida</span>
-                                @endif
-                            </div>
                         </div>
                     </div>
                     <div class="dropdown">

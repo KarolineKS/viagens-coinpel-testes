@@ -2,7 +2,7 @@ import "./bootstrap";
 import "./auth.js";
 import "./vehicle.js";
 import "./users.js";
-import "./bootstrap";
+
 import.meta.glob(["../images/**", "../fonts/**"]);
 
 import "./driver-form.js";
