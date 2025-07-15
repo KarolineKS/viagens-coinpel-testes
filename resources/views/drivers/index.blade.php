@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
-@section('action-type', 'offcanvas')
-@section('action-target', '#driverFormOffcanvas')
+@section('action-type', 'link')
+@section('action-target', route('drivers.create'))
 @section('action-entity', 'motorista')
 
 @section('search-action', route('drivers.index'))
@@ -30,7 +30,13 @@
                         @endif
                         <div class="driver-info">
                             <h6 class="driver-name">{{ $driver->name }}</h6>
-                            <p class="driver-email mb-0">{{ $driver->email }}</p>
+                            <p class="driver-email mb-1">{{ $driver->email }}</p>
+                            <div class="d-flex align-items-center justify-content-between">
+
+                                @if($driver->isCnhExpired())
+                                <span class="badge bg-danger">CNH Vencida</span>
+                                @endif
+                            </div>
                         </div>
                     </div>
                     <div class="dropdown">
@@ -39,7 +45,7 @@
                         </button>
                         <ul class="dropdown-menu dropdown-menu-end">
                             <li>
-                                <a class="dropdown-item" href="{{ route('drivers.edit', $driver) }}">
+                                <a href="{{ route('drivers.index', ['edit' => $driver->id]) }}" class="dropdown-item">
                                     <x-icon name="edit" class="me-2" />
                                     Editar motorista
                                 </a>
@@ -66,10 +72,10 @@
             <x-icon name="users" class="text-muted mb-3" style="font-size: 3rem;" />
             <h5>Nenhum motorista encontrado</h5>
             <p>Comece cadastrando o primeiro motorista.</p>
-            <button class="btn btn-primary" data-bs-toggle="offcanvas" data-bs-target="#driverFormOffcanvas">
+            <a href="{{ route('drivers.create') }}" class="btn btn-primary">
                 <x-icon name="plus" class="me-2" />
                 Adicionar motorista
-            </button>
+            </a>
         </div>
     </div>
     @endforelse
@@ -81,7 +87,16 @@
 </div>
 @endif
 
-@include('drivers.partials.form-offcanvas', ['autoOpen' => isset($editDriver)])
+@include('drivers.partials.form-offcanvas', ['autoOpen' => isset($editDriver), 'editDriver' => $editDriver ?? null])
+
+@if(isset($editDriver) || request()->has('create'))
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const offcanvas = new bootstrap.Offcanvas(document.getElementById('driverFormOffcanvas'));
+        offcanvas.show();
+    });
+</script>
+@endif
 
 @foreach ($drivers as $driver)
 <x-custom-alert
