@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Schema;
 return new class extends Migration
 {
     /**
-     * Run the migrations.
+     * Adds soft delete support to the 'drivers' table by introducing a nullable 'deleted_at' timestamp column.
      */
     public function up(): void
     {
@@ -17,7 +17,7 @@ return new class extends Migration
     }
 
     /**
-     * Reverse the migrations.
+     * Removes the soft delete functionality from the 'drivers' table by dropping the 'deleted_at' column.
      */
     public function down(): void
     {

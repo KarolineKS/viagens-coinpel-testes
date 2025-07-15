@@ -7,7 +7,9 @@ use Illuminate\Support\Facades\Schema;
 return new class extends Migration
 {
     /**
-     * Run the migrations.
+     * Creates the `drivers` table with columns for personal, contact, address, and driver's license information.
+     *
+     * Defines unique constraints and appropriate data types for each field, including support for nullable profile photos and timestamp management.
      */
     public function up(): void
     {
@@ -43,7 +45,7 @@ return new class extends Migration
     }
 
     /**
-     * Reverse the migrations.
+     * Drops the `drivers` table from the database if it exists, reversing the migration.
      */
     public function down(): void
     {
