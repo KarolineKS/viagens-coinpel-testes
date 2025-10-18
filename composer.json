@@ -15,7 +15,9 @@
         "laravel/tinker": "^2.10.1"
     },
     "require-dev": {
+        "behat/behat": "^3.12",
         "fakerphp/faker": "^1.23",
+        "laravel/dusk": "^8.3",
         "laravel/pail": "^1.2.2",
         "laravel/pint": "^1.13",
         "laravel/sail": "^1.41",

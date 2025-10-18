@@ -4,9 +4,19 @@
     "type": "module",
     "scripts": {
         "build": "vite build",
-        "dev": "vite"
+        "dev": "vite",
+        "test:e2e": "playwright test",
+        "test:e2e:ui": "playwright test --ui",
+        "test:e2e:headed": "playwright test --headed",
+        "test:e2e:debug": "playwright test --debug",
+        "test:e2e:report": "playwright show-report",
+        "test:e2e:install": "playwright install",
+        "test:bdd": "playwright test tests/e2e/bdd-scenarios.spec.js",
+        "test:bdd:ui": "playwright test tests/e2e/bdd-scenarios.spec.js --ui",
+        "test:bdd:headed": "playwright test tests/e2e/bdd-scenarios.spec.js --headed"
     },
     "devDependencies": {
+        "@playwright/test": "^1.56.1",
         "axios": "^1.8.2",
         "concurrently": "^9.0.1",
         "laravel-vite-plugin": "^1.2.0",
