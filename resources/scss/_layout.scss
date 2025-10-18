@@ -1,0 +1,233 @@
+@import "./_variables.scss";
+
+.app-layout {
+    display: flex;
+    background-color: #fff;
+    height: 100vh;
+    max-height: 100vh;
+    overflow: hidden;
+}
+
+.sidebar {
+    box-sizing: border-box;
+    background-color: $primary;
+    color: #ffffff;
+    height: 100vh;
+    position: sticky;
+    top: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    &__logo {
+        max-width: 150px;
+        margin-top: 24px;
+        margin-bottom: 40px;
+        display: block;
+    }
+
+    &__nav {
+        align-self: stretch;
+        display: flex;
+        flex-direction: column;
+        padding: 0 20px;
+
+        ul {
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 35px;
+        }
+    }
+
+    &__item {
+        list-style: none;
+    }
+
+    &__link {
+        display: flex;
+        align-items: center;
+        gap: 17px;
+        border-radius: 8px;
+        text-decoration: none;
+        font-weight: 500;
+        transition: background-color 0.2s, color 0.2s;
+        color: #f3f3f3;
+        font-size: 16px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: normal;
+
+        &:hover,
+        &.active {
+            background-color: darken($primary, 10%);
+        }
+    }
+}
+
+.main-content {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    overflow-y: scroll;
+}
+
+.header {
+    background-color: #ffffff;
+    padding: 30px 25px;
+
+    &__actions {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+    }
+
+    &__search {
+        margin-right: 25px;
+
+        .input-group {
+            @include elevated-box($padding: 10px 14px);
+        }
+
+        .form-control {
+            width: 336px;
+            border: none;
+            padding: 0;
+
+            &:focus {
+                box-shadow: none;
+            }
+
+            &::placeholder {
+                color: #bdbdbd;
+                font-size: 16px;
+                font-style: normal;
+                font-weight: 400;
+                line-height: normal;
+            }
+        }
+        .btn {
+            border: none;
+            background-color: transparent;
+            padding: 0;
+
+            &:hover {
+                background-color: #f8f9fa;
+            }
+        }
+    }
+
+    &__user-info {
+        background: none;
+        border: none;
+        padding: 0;
+        gap: 20px;
+    }
+
+    &__user-avatar img {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+    }
+
+    &__user-details {
+        gap: 3px;
+    }
+
+    &__user-name {
+        color: #383838;
+        font-size: 16px;
+        font-style: normal;
+        font-weight: 700;
+        line-height: normal;
+    }
+
+    &__user-role {
+        color: #9e9e9e;
+        font-size: 16px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: normal;
+    }
+
+    &__filter-btn {
+        color: #212121;
+        font-size: 16px;
+        font-style: normal;
+        font-weight: 500;
+        line-height: normal;
+        padding: 12px 35px;
+        @include elevated-box($padding: 12px 35px);
+
+        &:hover {
+            background-color: #f8f9fa;
+        }
+    }
+    .dropdown {
+        margin-left: 30px;
+    }
+
+    .header .dropdown .dropdown-menu {
+        margin-top: 10px;
+    }
+
+    .dropdown-menu {
+        background: transparent;
+        border: none;
+        box-shadow: none;
+        padding: 0;
+
+        &.dropdown-menu-end {
+            right: 0;
+            left: auto;
+        }
+
+        .dropdown-item {
+            &:first-child {
+                margin-bottom: 10px;
+                width: 75%;
+                @include elevated-box;
+            }
+        }
+
+        form {
+            display: inline-block;
+            border-radius: 8px;
+            transition: transform 0.2s ease;
+
+            &:hover,
+            &:focus-within {
+                transform: translateY(-2px);
+            }
+
+            button.dropdown-item {
+                box-shadow: none;
+                background: transparent;
+                @include elevated-box;
+
+                &:hover,
+                &:focus {
+                    color: #212529;
+                }
+            }
+        }
+    }
+
+    &__add-btn {
+        padding: 10px;
+    }
+}
+
+.form-control,
+.form-select {
+    border-radius: 5px;
+    border: 1px solid #e5e5e5;
+    background: #fff;
+    padding: 14px 30px;
+    color: #383838;
+    font-family: "Roboto", sans-serif;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}

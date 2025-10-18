@@ -1,0 +1,101 @@
+$primary: #593e75;
+$secondary: #dd754d;
+$success: #198754;
+$info: #0dcaf0;
+$warning: #ffc107;
+$danger: #e74c3c;
+$light: #f8f9fa;
+$dark: #212529;
+
+$font-family-sans-serif: "Roboto", sans-serif;
+
+$icon-btn-size: 13px;
+$icon-btn-opacity: 0.7;
+$icon-btn-opacity-hover: 1;
+
+$close-btn-size: $icon-btn-size;
+$close-btn-opacity: $icon-btn-opacity;
+$close-btn-opacity-hover: $icon-btn-opacity-hover;
+$close-btn-icon: url("../../public/images/x.svg");
+
+body {
+    font-family: $font-family-sans-serif;
+}
+
+:root {
+    --img-login-bg: url("{{ asset("assets/images/img-login.jpg") }}");
+    --icon-close: url("{{ asset("assets/images/x.svg") }}");
+}
+
+@mixin elevated-box($padding: 8px 14px) {
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+    border-radius: 6px;
+    overflow: hidden;
+    background-color: #fff;
+    border: none;
+    padding: $padding;
+}
+
+@mixin dropdown-form-action {
+    display: inline-block;
+}
+
+@mixin icon-btn($size: $icon-btn-size) {
+    width: $size;
+    height: $size;
+    padding: 0;
+    margin: 0;
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+    opacity: $icon-btn-opacity;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    &:hover {
+        opacity: $icon-btn-opacity-hover;
+    }
+
+    .icon-wrapper,
+    svg {
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+    }
+}
+
+.form-control,
+.form-select,
+.form-group__input {
+    &:focus {
+        border-color: rgba($primary, 0.5);
+        box-shadow: 0 0 0 0.1rem rgba($primary, 0.2);
+        outline: none;
+    }
+}
+
+.form-check-input {
+    &:checked {
+        background-color: $primary;
+        border-color: $primary;
+    }
+}
+
+@mixin alert-variant($name, $color, $bg-color) {
+    &--#{$name} {
+        .custom-alert-header {
+            background-color: $bg-color;
+            .icon-wrapper svg {
+                fill: $color;
+            }
+        }
+        .btn-confirm-variant {
+            background-color: $color;
+            color: #fff;
+            &:hover {
+                background-color: darken($color, 5%);
+            }
+        }
+    }
+}

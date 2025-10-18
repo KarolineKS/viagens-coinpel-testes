@@ -1,0 +1,118 @@
+@import "../variables";
+
+// Garantir que o modal de erro do formulário apareça por cima do offcanvas
+#formErrorAlert.modal {
+    z-index: 9999 !important;
+}
+
+.modal-content.custom-alert-content {
+    border-radius: 16px;
+    border: none;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    max-width: 400px;
+    margin: 1.75rem auto;
+    overflow: visible;
+}
+
+.modal-body.custom-alert-body {
+    padding: 32px;
+    position: relative;
+}
+
+.custom-alert-header {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    margin: -64px auto 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #f3f4f6;
+    border: 4px solid #fff;
+    position: relative;
+    z-index: 10;
+
+    .icon-wrapper svg {
+        width: 32px;
+        height: 32px;
+        fill: #6b7280;
+    }
+}
+
+.custom-alert-title {
+    font-weight: 700;
+    font-size: 22px;
+    color: #1f2937;
+    margin-bottom: 12px;
+}
+
+.custom-alert-message {
+    font-size: 15px;
+    color: #6b7280;
+    margin-bottom: 24px;
+    line-height: 1.6;
+
+    strong {
+        color: #1f2937;
+        font-weight: 600;
+    }
+}
+
+.custom-alert-actions {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    margin-top: 16px;
+
+    .btn {
+        border-radius: 8px;
+        padding: 12px 24px;
+        font-weight: 600;
+        font-size: 14px;
+        border: none;
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+
+        &:focus-visible {
+            outline: 2px solid #3b82f6;
+            outline-offset: 2px;
+        }
+
+        &:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+    }
+
+    .btn-outline-secondary {
+        background-color: #fff;
+        color: #4b5563;
+        border: 1px solid #d1d5db;
+
+        &:hover {
+            background-color: #f9fafb;
+            border-color: #adb5bd;
+        }
+    }
+}
+
+.custom-alert-content {
+    @include alert-variant("success", #10b981, #d1fae5);
+    @include alert-variant("danger", #ef4444, #fee2e2);
+    @include alert-variant("warning", #f59e0b, #fef3c7);
+    @include alert-variant("info", #3b82f6, #dbeafe);
+    @include alert-variant("error", #ef4444, #fee2e2);
+}
+
+.custom-alert-actions form.d-inline {
+    flex-grow: 1;
+    display: flex !important;
+    justify-content: center;
+
+    .btn {
+        width: 100%;
+    }
+}
+.custom-alert-actions .btn:not(form .btn) {
+    flex-grow: 1;
+}
