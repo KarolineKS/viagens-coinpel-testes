@@ -83,3 +83,7 @@ composer.phar
 
 # Debugbar (if used)
 storage/debugbar/
+
+# Playwright
+/playwright-report/
+/test-results/
