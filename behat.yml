@@ -1,0 +1,9 @@
+default:
+  suites:
+    default:
+      contexts:
+        - FeatureContext
+      paths:
+        - features
+  formatters:
+    pretty: true
