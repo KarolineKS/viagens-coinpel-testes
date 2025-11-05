@@ -23,8 +23,8 @@ body {
 }
 
 :root {
-    --img-login-bg: url("{{ asset("assets/images/img-login.jpg") }}");
-    --icon-close: url("{{ asset("assets/images/x.svg") }}");
+    --img-login-bg: url("/images/img-login.jpg");
+    --icon-close: url("/images/icons/x.svg");
 }
 
 @mixin elevated-box($padding: 8px 14px) {
